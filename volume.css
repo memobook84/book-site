@@ -1,0 +1,225 @@
+/* 巻詳細ページ専用のスタイル */
+
+.volume-main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.volume-container {
+    display: flex;
+    gap: 40px;
+    padding: 30px;
+}
+
+/* 左側：表紙画像 */
+.volume-image {
+    flex-shrink: 0;
+}
+
+.volume-image img,
+.volume-image .manga-detail-placeholder {
+    width: 300px;
+    height: 420px;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.volume-image .manga-detail-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.volume-image .manga-detail-placeholder .manga-placeholder-text {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    word-wrap: break-word;
+}
+
+/* 右側：詳細情報 */
+.volume-info-detail {
+    flex: 1;
+}
+
+.volume-title-row {
+    display: flex;
+    align-items: baseline;
+    gap: 15px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.volume-title-main {
+    font-size: 26px;
+    color: var(--color-text);
+    margin-bottom: 0;
+    line-height: 1.4;
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+.volume-number-display {
+    font-size: 20px;
+    color: var(--color-text-sub);
+    font-weight: 600;
+    white-space: nowrap;
+    font-family: var(--font-heading);
+}
+
+/* メタ情報 */
+.volume-meta {
+    margin-bottom: 30px;
+    padding: 10px 0;
+}
+
+.meta-item {
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+.meta-item:last-child {
+    margin-bottom: 0;
+}
+
+.meta-label {
+    font-weight: 500;
+    color: var(--color-text-sub);
+    min-width: 100px;
+    display: inline-block;
+}
+
+.meta-value {
+    color: var(--color-text);
+}
+
+.author-link {
+    color: #6cb4ee;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.author-link:hover {
+    color: #4a9de0;
+    text-decoration: underline;
+}
+
+/* この巻について */
+.volume-description {
+    margin-bottom: 30px;
+}
+
+.volume-description h2 {
+    font-size: 20px;
+    color: var(--color-text);
+    margin-bottom: 15px;
+    border-left: 3px solid var(--color-text);
+    padding-left: 12px;
+    font-family: var(--font-heading);
+    font-weight: 600;
+}
+
+.volume-description p {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--color-text);
+    text-align: justify;
+}
+
+/* 購入ボタン */
+.volume-buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.buy-button {
+    flex: 1;
+    padding: 15px 30px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    color: white;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.buy-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.rakuten-button {
+    background-color: var(--color-rakuten);
+}
+
+.rakuten-button:hover {
+    background-color: #7a5c4e;
+}
+
+.amazon-button {
+    background-color: var(--color-amazon);
+}
+
+.amazon-button:hover {
+    background-color: #917960;
+}
+
+/* ナビゲーションボタン */
+.navigation-buttons {
+    display: flex;
+    gap: 20px;
+    margin-top: 24px;
+}
+
+.nav-button {
+    display: inline-block;
+    color: #6cb4ee;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.3s;
+}
+
+.nav-button:hover {
+    color: #4a9de0;
+    text-decoration: underline;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    .volume-container {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .volume-image img {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .volume-title-main {
+        font-size: 22px;
+    }
+
+    .volume-number-display {
+        font-size: 20px;
+    }
+
+    .volume-buttons {
+        flex-direction: column;
+    }
+
+    .navigation-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

@@ -1,0 +1,183 @@
+/* フォローページ専用のスタイル */
+
+.follow-main {
+    max-width: 1400px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* ヘッダー */
+.follow-header {
+    padding: 20px 0;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.follow-header h1 {
+    font-size: 30px;
+    color: var(--color-text);
+    margin-bottom: 10px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+.follow-count {
+    font-size: 16px;
+    color: var(--color-text-sub);
+}
+
+/* フォロー中の作品グリッド */
+.followed-manga-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 24px;
+}
+
+.followed-manga-item {
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    position: relative;
+    background-color: var(--color-card);
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.followed-manga-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.followed-manga-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.followed-manga-item .manga-info {
+    padding: 12px;
+}
+
+.followed-manga-item h3 {
+    font-size: 14px;
+    text-align: center;
+    color: var(--color-text);
+    margin-bottom: 5px;
+    font-family: var(--font-heading);
+    font-weight: 600;
+}
+
+.followed-manga-item .author {
+    font-size: 12px;
+    text-align: center;
+    color: var(--color-text-sub);
+}
+
+/* アンフォローボタン */
+.unfollow-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    z-index: 10;
+}
+
+.unfollow-button:hover {
+    transform: scale(1.1);
+    background-color: #fff;
+}
+
+.unfollow-button svg {
+    stroke: var(--color-heart);
+    fill: var(--color-heart);
+}
+
+/* 空のメッセージ */
+.empty-message {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.empty-message svg {
+    stroke: var(--color-border);
+    margin-bottom: 20px;
+}
+
+.empty-message h2 {
+    font-size: 22px;
+    color: var(--color-text-sub);
+    margin-bottom: 10px;
+    font-family: var(--font-heading);
+}
+
+.empty-message p {
+    font-size: 15px;
+    color: var(--color-text-sub);
+    margin-bottom: 30px;
+}
+
+.browse-button {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: var(--color-text);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.browse-button:hover {
+    background-color: #2a4e40;
+}
+
+/* 戻るボタン */
+.back-button-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.back-button {
+    display: inline-block;
+    color: #6cb4ee;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.3s;
+}
+
+.back-button:hover {
+    color: #4a9de0;
+    text-decoration: underline;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 1200px) {
+    .followed-manga-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .followed-manga-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .follow-header h1 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .followed-manga-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

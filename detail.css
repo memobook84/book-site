@@ -1,0 +1,319 @@
+/* 詳細ページ専用のスタイル */
+
+.detail-main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.detail-container {
+    display: flex;
+    gap: 40px;
+    padding: 30px;
+}
+
+/* 左側：表紙画像 */
+.detail-image {
+    flex-shrink: 0;
+}
+
+.detail-image img,
+.manga-detail-placeholder {
+    width: 300px;
+    height: 420px;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.manga-detail-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.manga-detail-placeholder .manga-placeholder-text {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    word-wrap: break-word;
+}
+
+/* 右側：詳細情報 */
+.detail-info {
+    flex: 1;
+}
+
+/* タイトルとフォローボタン */
+.title-with-follow {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.detail-title {
+    font-size: 30px;
+    color: var(--color-text);
+    margin-bottom: 0;
+    line-height: 1.4;
+    flex: 1;
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+/* フォローボタン（ハート） */
+.follow-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+}
+
+.follow-button:hover {
+    transform: scale(1.15) rotate(15deg);
+    animation: sparkle 0.5s ease-in-out;
+}
+
+@keyframes sparkle {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.2) rotate(15deg); }
+}
+
+.follow-button .heart-icon {
+    stroke: #999;
+    fill: none;
+    transition: fill 0.3s, stroke 0.3s, transform 0.3s;
+}
+
+.follow-button.followed .heart-icon {
+    fill: #e74c3c;
+    stroke: #e74c3c;
+}
+
+/* メタ情報 */
+.detail-meta {
+    margin-bottom: 30px;
+    padding: 10px 0;
+}
+
+.meta-item {
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+.meta-item:last-child {
+    margin-bottom: 0;
+}
+
+.meta-label {
+    font-weight: 500;
+    color: var(--color-text-sub);
+    min-width: 100px;
+    display: inline-block;
+}
+
+.meta-value {
+    color: var(--color-text);
+}
+
+.author-link {
+    color: #6cb4ee;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.author-link:hover {
+    color: #4a9de0;
+    text-decoration: underline;
+}
+
+/* あらすじ */
+.detail-description {
+    margin-bottom: 30px;
+}
+
+.detail-description h2 {
+    font-size: 20px;
+    color: var(--color-text);
+    margin-bottom: 15px;
+    border-left: 3px solid var(--color-text);
+    padding-left: 12px;
+    font-family: var(--font-heading);
+    font-weight: 600;
+}
+
+.detail-description p {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--color-text);
+    text-align: justify;
+}
+
+/* 購入ボタン */
+.detail-buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.buy-button {
+    flex: 1;
+    padding: 15px 30px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    color: white;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.buy-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.rakuten-button {
+    background-color: var(--color-rakuten);
+}
+
+.rakuten-button:hover {
+    background-color: #7a5c4e;
+}
+
+.amazon-button {
+    background-color: var(--color-amazon);
+}
+
+.amazon-button:hover {
+    background-color: #917960;
+}
+
+/* 戻るボタン */
+.back-button-container {
+    margin-top: 24px;
+}
+
+.back-button {
+    display: inline-block;
+    color: #6cb4ee;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.3s;
+}
+
+.back-button:hover {
+    color: #4a9de0;
+    text-decoration: underline;
+}
+
+/* 各巻セクション */
+.volumes-section {
+    margin-top: 48px;
+    padding: 20px 0;
+}
+
+.volumes-title {
+    font-size: 22px;
+    color: var(--color-text);
+    margin-bottom: 30px;
+    border-left: 3px solid var(--color-text);
+    padding-left: 12px;
+    font-family: var(--font-heading);
+    font-weight: 600;
+}
+
+.volumes-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.volume-item {
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    background-color: var(--color-card);
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.volume-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.volume-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.volume-info {
+    padding: 12px;
+    text-align: center;
+}
+
+.volume-number {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 5px;
+    font-family: var(--font-heading);
+}
+
+.volume-date {
+    font-size: 12px;
+    color: var(--color-text-sub);
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 1024px) {
+    .volumes-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .detail-container {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .detail-image img {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .detail-title {
+        font-size: 24px;
+    }
+
+    .detail-buttons {
+        flex-direction: column;
+    }
+
+    .volumes-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .volumes-section {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .volumes-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
