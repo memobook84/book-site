@@ -10,7 +10,7 @@
     function resize() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        if (enabled) initColumns();
+        if (enabled) initStreams();
     }
     resize();
     window.addEventListener('resize', resize);
@@ -32,7 +32,7 @@
         enabled = true;
         localStorage.setItem('lightning', 'on');
         updateUI();
-        initColumns();
+        initStreams();
         animId = requestAnimationFrame(animate);
     }
 
@@ -59,131 +59,80 @@
         }
     });
 
-    // --- マトリックス雨 ---
-    var FONT_SIZE = 16;
-    var columns = [];
-    var chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ本書読物語文学小説作著編集店棚架頁章節巻冊';
+    // --- 光の線エフェクト ---
+    var streams = [];
+    var STREAM_COUNT = 60;
 
-    function initColumns() {
-        var colCount = Math.ceil(canvas.width / FONT_SIZE);
-        columns = [];
-        for (var i = 0; i < colCount; i++) {
-            columns.push({
-                x: i * FONT_SIZE,
-                drops: [],
-            });
-            // 各カラムに1〜3本のストリームを配置
-            var streamCount = 1 + Math.floor(Math.random() * 2);
-            for (var s = 0; s < streamCount; s++) {
-                columns[i].drops.push({
-                    y: Math.random() * canvas.height * -1,
-                    speed: 2 + Math.random() * 6,
-                    length: 8 + Math.floor(Math.random() * 20),
-                    chars: [],
-                    changeTimer: 0,
-                });
-                // 文字列を事前生成
-                var drop = columns[i].drops[columns[i].drops.length - 1];
-                for (var c = 0; c < drop.length; c++) {
-                    drop.chars.push(chars[Math.floor(Math.random() * chars.length)]);
-                }
-            }
+    function createStream(randomY) {
+        var x = Math.random() * canvas.width;
+        var speed = 3 + Math.random() * 7;
+        var lineLen = 40 + Math.random() * 120;
+        var width = 1 + Math.random() * 2.5;
+        var alpha = 0.15 + Math.random() * 0.5;
+
+        return {
+            x: x,
+            y: randomY ? Math.random() * (canvas.height + lineLen) - lineLen : -lineLen - Math.random() * canvas.height * 0.5,
+            speed: speed,
+            lineLen: lineLen,
+            width: width,
+            alpha: alpha,
+            glow: 4 + Math.random() * 8,
+        };
+    }
+
+    function initStreams() {
+        streams = [];
+        for (var i = 0; i < STREAM_COUNT; i++) {
+            streams.push(createStream(true));
         }
     }
 
-    var lastTime = 0;
-    var frameInterval = 50; // 約20fps（マトリックスっぽい速度）
-
-    // 除外エリアなし（全画面にエフェクト）
-    function getExcludeZone() {
-        return null;
-    }
-
-    function animate(time) {
+    function animate() {
         if (!enabled) return;
 
-        if (time - lastTime < frameInterval) {
-            animId = requestAnimationFrame(animate);
-            return;
-        }
-        lastTime = time;
-
-        var zone = getExcludeZone();
-
-        // 背景を半透明で塗り残像
-        ctx.fillStyle = 'rgba(52, 80, 162, 0.12)';
+        // 半透明クリアで残像
+        ctx.fillStyle = 'rgba(52, 80, 162, 0.15)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // 除外エリアをクリア（残像も消す）
-        if (zone) {
-            ctx.clearRect(zone.left, zone.top, zone.right - zone.left, zone.bottom - zone.top);
-        }
+        for (var i = 0; i < streams.length; i++) {
+            var s = streams[i];
 
-        ctx.font = FONT_SIZE + 'px monospace';
+            // グラデーション（先頭が明るく、末尾が透明）
+            var headY = s.y;
+            var tailY = s.y - s.lineLen;
 
-        for (var i = 0; i < columns.length; i++) {
-            var col = columns[i];
-            for (var d = 0; d < col.drops.length; d++) {
-                var drop = col.drops[d];
+            var grad = ctx.createLinearGradient(s.x, tailY, s.x, headY);
+            grad.addColorStop(0, 'rgba(250, 190, 35, 0)');
+            grad.addColorStop(0.5, 'rgba(250, 190, 35, ' + (s.alpha * 0.5) + ')');
+            grad.addColorStop(0.85, 'rgba(250, 210, 80, ' + s.alpha + ')');
+            grad.addColorStop(1, 'rgba(255, 255, 220, ' + Math.min(s.alpha * 1.3, 1) + ')');
 
-                // 文字をランダムに変化
-                drop.changeTimer++;
-                if (drop.changeTimer > 2) {
-                    var idx = Math.floor(Math.random() * drop.length);
-                    drop.chars[idx] = chars[Math.floor(Math.random() * chars.length)];
-                    drop.changeTimer = 0;
-                }
+            // グロー
+            ctx.save();
+            ctx.shadowColor = 'rgba(250, 190, 35, ' + (s.alpha * 0.6) + ')';
+            ctx.shadowBlur = s.glow;
+            ctx.beginPath();
+            ctx.moveTo(s.x, tailY);
+            ctx.lineTo(s.x, headY);
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = s.width;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+            ctx.restore();
 
-                // 各文字を描画
-                for (var c = 0; c < drop.length; c++) {
-                    var charY = drop.y - c * FONT_SIZE;
-                    if (charY < -FONT_SIZE || charY > canvas.height + FONT_SIZE) continue;
+            // 先頭の明るい点
+            ctx.beginPath();
+            ctx.arc(s.x, headY, s.width * 1.2, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255, 255, 220, ' + Math.min(s.alpha * 1.5, 1) + ')';
+            ctx.fill();
 
-                    // ロゴ・タイトル周辺はスキップ
-                    if (zone && col.x + FONT_SIZE > zone.left && col.x < zone.right && charY > zone.top && charY < zone.bottom) continue;
+            // 移動
+            s.y += s.speed;
 
-                    var progress = c / drop.length;
-
-                    if (c === 0) {
-                        // 先頭文字は白く明るい
-                        ctx.fillStyle = 'rgba(255, 255, 240, 0.95)';
-                    } else if (c <= 2) {
-                        // 先頭付近は明るい黄色
-                        ctx.fillStyle = 'rgba(250, 190, 35, ' + (0.9 - progress * 0.3) + ')';
-                    } else {
-                        // 後方は暗くなる
-                        var alpha = (1 - progress) * 0.7;
-                        // 黄色からオレンジへグラデーション
-                        var r = 250;
-                        var g = Math.floor(190 - progress * 80);
-                        var b = 35;
-                        ctx.fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
-                    }
-
-                    ctx.fillText(drop.chars[c], col.x, charY);
-                }
-
-                // 先頭のグロー
-                if (drop.y > 0 && drop.y < canvas.height) {
-                    ctx.beginPath();
-                    ctx.arc(col.x + FONT_SIZE / 2, drop.y, FONT_SIZE, 0, Math.PI * 2);
-                    ctx.fillStyle = 'rgba(250, 190, 35, 0.08)';
-                    ctx.fill();
-                }
-
-                // 移動
-                drop.y += drop.speed;
-
-                // 画面下に出たらリセット
-                if (drop.y - drop.length * FONT_SIZE > canvas.height) {
-                    drop.y = Math.random() * canvas.height * -0.5 - 50;
-                    drop.speed = 2 + Math.random() * 6;
-                    drop.length = 8 + Math.floor(Math.random() * 20);
-                    drop.chars = [];
-                    for (var nc = 0; nc < drop.length; nc++) {
-                        drop.chars.push(chars[Math.floor(Math.random() * chars.length)]);
-                    }
-                }
+            // 画面外に出たらリセット
+            if (s.y - s.lineLen > canvas.height) {
+                streams[i] = createStream(false);
             }
         }
 
@@ -191,7 +140,7 @@
     }
 
     if (enabled) {
-        initColumns();
+        initStreams();
         animId = requestAnimationFrame(animate);
     }
 })();
