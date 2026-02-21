@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// 楽天APIから漫画データを収集してJSONファイルに保存するバッチスクリプト
+// 楽天APIから小説データを収集してJSONファイルに保存するバッチスクリプト
 // 使用方法: node scripts/collect.js
 
 const https = require('https');
@@ -11,9 +11,9 @@ const RAKUTEN_BASE = 'https://openapi.rakuten.co.jp/services/api/BooksBook/Searc
 const APP_ID = 'baf572c9-8b33-407f-84de-79088be6b58a';
 const REFERER = 'https://manga-site-three.vercel.app';
 
-const GENRES = ['001001001', '001001002', '001001003']; // 少年, 少女, 青年
-const GENRE_NAMES = { '001001001': '少年漫画', '001001002': '少女漫画', '001001003': '青年漫画' };
-const PUBLISHERS = ['集英社', '小学館', '講談社'];
+const GENRES = ['001004008', '001004009', '001004001']; // 日本の小説, 外国の小説, ミステリー・サスペンス
+const GENRE_NAMES = { '001004008': '日本の小説', '001004009': '外国の小説', '001004001': 'ミステリー・サスペンス' };
+const PUBLISHERS = ['新潮社', '文藝春秋', '講談社'];
 const MAX_PAGES_PER_GENRE = 100; // 各ジャンル最大100ページ（3000件）
 const HITS_PER_PAGE = 30;
 const DELAY_MS = 1200; // リクエスト間のディレイ（レートリミット対策）
@@ -109,15 +109,14 @@ function extractSeriesName(title) {
 
 // ジャンルIDからジャンル名へのマッピング
 const genreMap = {
-  '001001001': '少年漫画',
-  '001001002': '少女漫画',
-  '001001003': '青年漫画',
-  '001001004': 'レディースコミック',
-  '001001005': 'BL（ボーイズラブ）',
-  '001001006': 'TL（ティーンズラブ）',
-  '001001007': '4コマ',
-  '001001008': '学習まんが',
-  '001001009': 'その他',
+  '001004008': '日本の小説',
+  '001004009': '外国の小説',
+  '001004001': 'ミステリー・サスペンス',
+  '001004002': 'SF・ホラー',
+  '001004003': 'エッセイ',
+  '001004016': 'ロマンス',
+  '001004004': '詩歌・俳諧',
+  '001004005': '古典',
 };
 
 function resolveGenre(genreId) {
@@ -128,7 +127,7 @@ function resolveGenre(genreId) {
   for (const [key, name] of Object.entries(genreMap)) {
     if (firstGenre.startsWith(key)) return name;
   }
-  return 'コミック';
+  return '小説';
 }
 
 // --- データ収集 ---
@@ -139,13 +138,13 @@ async function fetchGenre(genreId) {
   for (let page = 1; page <= MAX_PAGES_PER_GENRE; page++) {
     const params = new URLSearchParams({
       applicationId: APP_ID,
+      accessKey: ACCESS_KEY || APP_ID,
       formatVersion: '2',
       booksGenreId: genreId,
       hits: String(HITS_PER_PAGE),
       page: String(page),
       sort: 'sales',
     });
-    if (ACCESS_KEY) params.set('accessKey', ACCESS_KEY);
 
     try {
       process.stdout.write(`  ジャンル ${GENRE_NAMES[genreId]} ページ ${page}/${MAX_PAGES_PER_GENRE}...`);
@@ -200,8 +199,7 @@ function groupBySeries(items) {
   // 特装版・限定版・セット等を除外
   items = items.filter(item => {
     const t = item.title || '';
-    if (/特装版|限定版|特別版|豪華版|ペーパークラフト付|描き下ろし|同梱版|セット|BOX/.test(t)) return false;
-    if (/ドラえもん/.test(t)) return false;
+    if (/特装版|限定版|特別版|豪華版|セット|BOX|文庫版/.test(t)) return false;
     return true;
   });
 
@@ -277,13 +275,9 @@ function groupBySeries(items) {
 
 // --- メイン処理 ---
 async function main() {
-  if (!ACCESS_KEY) {
-    console.error('エラー: 環境変数 RAKUTEN_APP_ID が設定されていません。');
-    console.error('使用方法: RAKUTEN_APP_ID=xxxxx node scripts/collect.js');
-    process.exit(1);
-  }
+  // applicationIdはハードコード済み
 
-  console.log('=== 漫画データ収集開始 ===');
+  console.log('=== 小説データ収集開始 ===');
   console.log(`対象出版社: ${PUBLISHERS.join(', ')}`);
   console.log(`対象ジャンル: ${GENRES.map(g => GENRE_NAMES[g]).join(', ')}`);
   console.log();
@@ -320,8 +314,8 @@ async function main() {
   if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
   if (!fs.existsSync(PAGES_DIR)) fs.mkdirSync(PAGES_DIR, { recursive: true });
 
-  // manga-all.json 出力
-  const allPath = path.join(DATA_DIR, 'manga-all.json');
+  // book-all.json 出力
+  const allPath = path.join(DATA_DIR, 'book-all.json');
   fs.writeFileSync(allPath, JSON.stringify(series, null, 0));
   const allSize = (fs.statSync(allPath).size / 1024 / 1024).toFixed(2);
   console.log(`\n${allPath} に出力 (${allSize} MB, ${series.length}タイトル)`);

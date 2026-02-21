@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Crimson+Pro:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script src="manga-data.js"></script>
+    <script src="book-data.js"></script>
     <script src="rakuten-adapter.js"></script>
     <script src="script.js"></script>
 </head>
@@ -31,7 +31,7 @@
                 <a href="follow.html" class="nav-link follow-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Follow</a>
             </nav>
             <div class="search-box">
-                <input type="text" placeholder="Search manga...">
+                <input type="text" placeholder="Search novels...">
                 <button class="search-icon" aria-label="検索">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>
@@ -53,15 +53,15 @@
                         Publisher
                     </h3>
                     <ul class="sidebar-list">
-                        <li><a href="#" class="sidebar-link" data-filter="publisher" data-value="集英社">集英社</a></li>
-                        <li><a href="#" class="sidebar-link" data-filter="publisher" data-value="小学館">小学館</a></li>
+                        <li><a href="#" class="sidebar-link" data-filter="publisher" data-value="新潮社">新潮社</a></li>
+                        <li><a href="#" class="sidebar-link" data-filter="publisher" data-value="文藝春秋">文藝春秋</a></li>
                         <li><a href="#" class="sidebar-link" data-filter="publisher" data-value="講談社">講談社</a></li>
-                        <li><span class="sidebar-link">秋田書店</span></li>
                         <li><span class="sidebar-link">KADOKAWA</span></li>
-                        <li><span class="sidebar-link">スクウェア・エニックス</span></li>
-                        <li><span class="sidebar-link">白泉社</span></li>
-                        <li><span class="sidebar-link">双葉社</span></li>
-                        <li><span class="sidebar-link">徳間書店</span></li>
+                        <li><span class="sidebar-link">集英社</span></li>
+                        <li><span class="sidebar-link">小学館</span></li>
+                        <li><span class="sidebar-link">幻冬舎</span></li>
+                        <li><span class="sidebar-link">中央公論新社</span></li>
+                        <li><span class="sidebar-link">岩波書店</span></li>
                     </ul>
                 </div>
                 <div class="sidebar-section">
@@ -70,9 +70,12 @@
                         Genre
                     </h3>
                     <ul class="sidebar-list">
-                        <li><a href="#" class="sidebar-link" data-filter="genre" data-value="001001001">少年漫画</a></li>
-                        <li><a href="#" class="sidebar-link" data-filter="genre" data-value="001001002">少女漫画</a></li>
-                        <li><a href="#" class="sidebar-link" data-filter="genre" data-value="001001003">青年漫画</a></li>
+                        <li><a href="#" class="sidebar-link" data-filter="genre" data-value="001004008">日本の小説</a></li>
+                        <li><a href="#" class="sidebar-link" data-filter="genre" data-value="001004009">外国の小説</a></li>
+                        <li><a href="#" class="sidebar-link" data-filter="genre" data-value="001004001">ミステリー・サスペンス</a></li>
+                        <li><a href="#" class="sidebar-link" data-filter="genre" data-value="001004002">SF・ホラー</a></li>
+                        <li><a href="#" class="sidebar-link" data-filter="genre" data-value="001004003">エッセイ</a></li>
+                        <li><a href="#" class="sidebar-link" data-filter="genre" data-value="001004016">ロマンス</a></li>
                     </ul>
                 </div>
                 <div class="sidebar-section">
@@ -91,8 +94,8 @@
 
         <!-- メインエリア -->
         <main>
-            <div class="manga-grid">
-                <!-- JavaScriptで動的に漫画が表示されます -->
+            <div class="book-grid">
+                <!-- JavaScriptで動的に書籍が表示されます -->
             </div>
             <div id="pagination" class="pagination" style="display: none;">
                 <!-- JavaScriptで動的に生成 -->

@@ -14,11 +14,11 @@ const ITEMS_PER_PAGE = 60;
 
 // スケルトンUI表示
 function showSkeleton(count = 60) {
-    const gridContainer = document.querySelector('.manga-grid');
+    const gridContainer = document.querySelector('.book-grid');
     gridContainer.innerHTML = '';
     for (let i = 0; i < count; i++) {
         const skeleton = document.createElement('div');
-        skeleton.className = 'manga-item skeleton';
+        skeleton.className = 'book-item skeleton';
         skeleton.innerHTML = `
             <div class="skeleton-image"></div>
             <div class="skeleton-title"></div>
@@ -28,7 +28,7 @@ function showSkeleton(count = 60) {
 }
 
 // 掲載対象の出版社
-const ALLOWED_PUBLISHERS = ['集英社', '小学館', '講談社'];
+const ALLOWED_PUBLISHERS = ['新潮社', '文藝春秋', '講談社'];
 
 function filterByPublisher(items) {
     return items.filter(item =>
@@ -47,7 +47,7 @@ function groupBySeries(items, publisherFilter) {
     // 特装版・限定版・セット等を除外
     items = items.filter(item => {
         const t = item.title || '';
-        return !/特装版|限定版|特別版|豪華版|ペーパークラフト付|描き下ろし|同梱版|セット|BOX/.test(t);
+        return !/特装版|限定版|特別版|豪華版|セット|BOX|文庫版/.test(t);
     });
 
     const seriesMap = new Map();
@@ -108,7 +108,7 @@ let cachedRanking = null;
 async function fetchRanking() {
     if (cachedRanking) return cachedRanking;
     try {
-        const response = await fetch('/api/books?genre=001001&hits=30&sort=sales');
+        const response = await fetch('/api/books?genre=001004&hits=30&sort=sales');
         if (!response.ok) throw new Error(`API error: ${response.status}`);
         const data = await response.json();
         const adapted = adaptApiResponse(data);
@@ -159,9 +159,9 @@ function createRankingSection(rankingItems, startRank, title) {
     return section;
 }
 
-// 漫画データを表示する関数
-function displayMangaItems(items) {
-    const gridContainer = document.querySelector('.manga-grid');
+// 書籍データを表示する関数
+function displayBookItems(items) {
+    const gridContainer = document.querySelector('.book-grid');
     gridContainer.innerHTML = '';
 
     if (!items || items.length === 0) {
@@ -178,22 +178,22 @@ function displayMangaItems(items) {
     const rankingPromise = insertRanking ? fetchRanking() : Promise.resolve(null);
 
     items.forEach((item, index) => {
-        const mangaItem = document.createElement('div');
-        mangaItem.className = 'manga-item';
+        const bookItem = document.createElement('div');
+        bookItem.className = 'book-item';
 
         const imageHtml = createImageElement(item);
 
-        mangaItem.innerHTML = `
+        bookItem.innerHTML = `
             ${imageHtml}
             <h3>${item.displayTitle || item.title}</h3>
         `;
 
-        mangaItem.addEventListener('click', () => {
+        bookItem.addEventListener('click', () => {
             const seriesTitle = item.displayTitle || item.title;
             window.location.href = `detail.html?title=${encodeURIComponent(seriesTitle)}`;
         });
 
-        gridContainer.appendChild(mangaItem);
+        gridContainer.appendChild(bookItem);
 
         // 18作品目の後にランキング1〜5位を挿入
         if (insertRanking && index === insertAt1 - 1) {
@@ -240,7 +240,7 @@ function getFilterKey() {
 // 全データを取得してフィルタ・ページネーション（出版社/ジャンルフィルタ時）
 async function loadAllDataAndFilter() {
     if (!cachedAllData) {
-        const response = await fetch('/data/manga-all.json');
+        const response = await fetch('/data/book-all.json');
         if (!response.ok) throw new Error(`JSON fetch error: ${response.status}`);
         cachedAllData = await response.json();
     }
@@ -322,7 +322,7 @@ async function fetchFromApi(page = 1, keyword = '') {
             const publisherFilter = (currentFilter && currentFilter.type === 'publisher') ? currentFilter.value : null;
             const series = groupBySeries(allItems, publisherFilter);
 
-            displayMangaItems(series);
+            displayBookItems(series);
             updatePagination();
             upgradeCovers();
         } else {
@@ -345,7 +345,7 @@ async function fetchFromApi(page = 1, keyword = '') {
                 }
                 return base;
             });
-            displayMangaItems(adapted);
+            displayBookItems(adapted);
             updatePagination();
             upgradeCovers();
         }
@@ -357,11 +357,11 @@ async function fetchFromApi(page = 1, keyword = '') {
     }
 }
 
-// フォールバック表示（manga-data.jsから）
+// フォールバック表示（book-data.jsから）
 function fallbackDisplay(keyword = '') {
-    let items = mangaDatabase;
+    let items = bookDatabase;
     if (keyword) {
-        items = mangaDatabase.filter(m =>
+        items = bookDatabase.filter(m =>
             m.title.toLowerCase().includes(keyword.toLowerCase()) ||
             m.author.toLowerCase().includes(keyword.toLowerCase())
         );
@@ -380,7 +380,7 @@ function fallbackDisplay(keyword = '') {
 
     totalPages = 1;
     currentPage = 1;
-    displayMangaItems(adapted);
+    displayBookItems(adapted);
     updatePagination();
 }
 

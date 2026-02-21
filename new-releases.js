@@ -49,7 +49,7 @@ async function displayNewReleases() {
 // APIから新刊を取得
 async function fetchNewReleases() {
     try {
-        const response = await fetch('/api/books?genre=001001&hits=20&sort=sales');
+        const response = await fetch('/api/books?genre=001004&hits=20&sort=sales');
         if (!response.ok) throw new Error(`API error: ${response.status}`);
         const data = await response.json();
         const adapted = adaptApiResponse(data);
@@ -62,7 +62,7 @@ async function fetchNewReleases() {
 
 // ローカルデータから新刊情報を生成（フォールバック）
 function generateLocalNewReleases() {
-    const releases = mangaDatabase.map(manga => {
+    const releases = bookDatabase.map(manga => {
         const dateMatch = (manga.firstReleaseDate || '').match(/(\d+)年(\d+)月/);
         const startYear = dateMatch ? parseInt(dateMatch[1]) : 2020;
         const startMonth = dateMatch ? parseInt(dateMatch[2]) : 1;

@@ -1,7 +1,7 @@
 {
   "name": "Book Store",
   "short_name": "Book Store",
-  "description": "Manga collection from Shueisha, Shogakukan, and Kodansha",
+  "description": "Novel and literature collection from Shinchosha, Bungeishunju, and Kodansha",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FFFFFF",

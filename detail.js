@@ -24,12 +24,12 @@ function extractVolumeNumber(title) {
     return null;
 }
 
-// 漫画の詳細を表示（メイン処理 — シリーズページ）
-async function displayMangaDetail() {
+// 作品の詳細を表示（メイン処理 — シリーズページ）
+async function displayBookDetail() {
     const { title } = getDetailParams();
 
     if (!title) {
-        document.getElementById('manga-title').textContent = '漫画が見つかりません';
+        document.getElementById('book-title').textContent = '作品が見つかりません';
         return;
     }
 
@@ -43,12 +43,12 @@ async function displayMangaDetail() {
         allVolumes = adapted.items;
     } catch (err) {
         console.warn('シリーズ検索失敗:', err);
-        document.getElementById('manga-title').textContent = '漫画が見つかりません';
+        document.getElementById('book-title').textContent = '作品が見つかりません';
         return;
     }
 
     if (allVolumes.length === 0) {
-        document.getElementById('manga-title').textContent = '漫画が見つかりません';
+        document.getElementById('book-title').textContent = '作品が見つかりません';
         return;
     }
 
@@ -64,25 +64,25 @@ async function displayMangaDetail() {
 
     // タイトル
     const displaySeriesName = seriesName || title;
-    document.title = `${displaySeriesName} - THE MANGA STORE`;
-    document.getElementById('manga-title').textContent = displaySeriesName;
+    document.title = `${displaySeriesName} - THE BOOK STORE`;
+    document.getElementById('book-title').textContent = displaySeriesName;
 
     // 著者・出版社・レーベル: 最初の巻から取得
     const firstVol = volumes[0];
-    const authorLink = document.getElementById('manga-author');
+    const authorLink = document.getElementById('book-author');
     authorLink.textContent = firstVol.author || '-';
     authorLink.href = `author.html?name=${encodeURIComponent(firstVol.author || '')}`;
 
-    document.getElementById('manga-publisher').textContent = firstVol.publisher || '-';
-    document.getElementById('manga-label').textContent = firstVol.label || firstVol.seriesName || '-';
-    document.getElementById('manga-genre').textContent = firstVol.genre || '-';
+    document.getElementById('book-publisher').textContent = firstVol.publisher || '-';
+    document.getElementById('book-label').textContent = firstVol.label || firstVol.seriesName || '-';
+    document.getElementById('book-genre').textContent = firstVol.genre || '-';
 
     // 巻数表示
-    document.getElementById('manga-date').textContent = `${volumes.length}巻`;
+    document.getElementById('book-date').textContent = `${volumes.length}巻`;
 
     // あらすじ: descriptionが空でない最初の巻から取得
     const withDescription = volumes.find(v => v.description && v.description.trim() !== '');
-    document.getElementById('manga-description').textContent =
+    document.getElementById('book-description').textContent =
         (withDescription ? withDescription.description : '') || 'あらすじ情報がありません。';
 
     // 表紙画像: 実カバーがある巻から選択（最新巻除外）
@@ -167,9 +167,9 @@ function displayVolumesList(volumes) {
 // フォロー機能
 function setupFollowButton(manga) {
     const followButton = document.getElementById('follow-button');
-    const followedManga = getFollowedManga();
+    const followedBooks = getFollowedBooks();
 
-    const isFollowed = followedManga.some(m => m.title === manga.title);
+    const isFollowed = followedBooks.some(m => m.title === manga.title);
     if (isFollowed) {
         followButton.classList.add('followed');
     }
@@ -180,14 +180,14 @@ function setupFollowButton(manga) {
 }
 
 function toggleFollow(manga, button) {
-    let followedManga = getFollowedManga();
-    const index = followedManga.findIndex(m => m.title === manga.title);
+    let followedBooks = getFollowedBooks();
+    const index = followedBooks.findIndex(m => m.title === manga.title);
 
     if (index > -1) {
-        followedManga.splice(index, 1);
+        followedBooks.splice(index, 1);
         button.classList.remove('followed');
     } else {
-        followedManga.push({
+        followedBooks.push({
             id: manga.id || manga.isbn,
             isbn: manga.isbn || '',
             title: manga.title,
@@ -198,13 +198,13 @@ function toggleFollow(manga, button) {
         button.classList.add('followed');
     }
 
-    localStorage.setItem('followedManga', JSON.stringify(followedManga));
+    localStorage.setItem('followedBooks', JSON.stringify(followedBooks));
 }
 
-function getFollowedManga() {
-    const stored = localStorage.getItem('followedManga');
+function getFollowedBooks() {
+    const stored = localStorage.getItem('followedBooks');
     return stored ? JSON.parse(stored) : [];
 }
 
 // ページ読み込み時に実行
-window.addEventListener('DOMContentLoaded', displayMangaDetail);
+window.addEventListener('DOMContentLoaded', displayBookDetail);

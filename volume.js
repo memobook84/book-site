@@ -39,7 +39,7 @@ async function displayVolumeDetail() {
 
     // APIで取得できなかった場合、ローカルデータベースからフォールバック
     if (!volume && seriesId !== null) {
-        const manga = mangaDatabase.find(m => m.id === seriesId);
+        const manga = bookDatabase.find(m => m.id === seriesId);
         if (manga) {
             const vNum = volumeNum || 1;
             volume = buildLocalVolume(manga, vNum);
@@ -52,7 +52,7 @@ async function displayVolumeDetail() {
     }
 
     // ページタイトルを更新
-    document.title = `${volume.title} - THE MANGA STORE`;
+    document.title = `${volume.title} - THE BOOK STORE`;
 
     // 画像を表示
     const volumeImageContainer = document.querySelector('.volume-image');

@@ -5,7 +5,7 @@ async function displayRanking() {
     grid.innerHTML = '<p style="text-align:center;padding:40px;color:var(--color-text-sub);">ランキングを読み込み中...</p>';
 
     try {
-        const response = await fetch('/api/books?genre=001001&hits=30&sort=sales');
+        const response = await fetch('/api/books?genre=001004&hits=30&sort=sales');
         if (!response.ok) throw new Error('API error: ' + response.status);
         const data = await response.json();
         const adapted = adaptApiResponse(data);
@@ -29,7 +29,7 @@ function groupBySeries(items) {
     // 特装版・限定版等を除外
     items = items.filter(function (item) {
         var t = item.title || '';
-        return !/特装版|限定版|特別版|豪華版|ペーパークラフト付|描き下ろし|同梱版|セット|BOX/.test(t);
+        return !/特装版|限定版|特別版|豪華版|セット|BOX|文庫版/.test(t);
     });
 
     var seriesMap = new Map();

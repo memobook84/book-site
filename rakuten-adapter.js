@@ -2,15 +2,14 @@
 
 // ジャンルIDからジャンル名へのマッピング
 const genreMap = {
-  '001001001': '少年漫画',
-  '001001002': '少女漫画',
-  '001001003': '青年漫画',
-  '001001004': 'レディースコミック',
-  '001001005': 'BL（ボーイズラブ）',
-  '001001006': 'TL（ティーンズラブ）',
-  '001001007': '4コマ',
-  '001001008': '学習まんが',
-  '001001009': 'その他',
+  '001004008': '日本の小説',
+  '001004009': '外国の小説',
+  '001004001': 'ミステリー・サスペンス',
+  '001004002': 'SF・ホラー',
+  '001004003': 'エッセイ',
+  '001004016': 'ロマンス',
+  '001004004': '詩歌・俳諧',
+  '001004005': '古典',
 };
 
 // ジャンルIDをジャンル名に変換
@@ -18,7 +17,7 @@ function resolveGenre(genreId) {
   if (!genreId) return '';
   // 複数ジャンルの場合、最初のものを使用
   const firstGenre = genreId.split('/')[0];
-  return genreMap[firstGenre] || 'コミック';
+  return genreMap[firstGenre] || '小説';
 }
 
 // APIレスポンスのアイテムをサイト内形式に変換
@@ -127,7 +126,7 @@ async function handleImageError(img, title, author, color, height) {
 }
 
 function createPlaceholderHtml(title, author, color, height) {
-  return `<div class="manga-cover-placeholder" style="height:${height}px;background:linear-gradient(145deg, ${color} 0%, ${adjustColor(color, -40)} 100%);">
+  return `<div class="book-cover-placeholder" style="height:${height}px;background:linear-gradient(145deg, ${color} 0%, ${adjustColor(color, -40)} 100%);">
             <div class="cover-spine"></div>
             <div class="cover-content">
               <div class="cover-title">${title}</div>
@@ -166,8 +165,8 @@ function createDetailImageElement(item) {
               onerror="handleDetailImageError(this,'${safeTitle}','${item.color}')"
               loading="lazy">`;
   }
-  return `<div class="manga-detail-placeholder" style="background-color: ${item.color};">
-            <span class="manga-placeholder-text">${item.title}</span>
+  return `<div class="book-detail-placeholder" style="background-color: ${item.color};">
+            <span class="book-placeholder-text">${item.title}</span>
           </div>`;
 }
 
@@ -175,14 +174,14 @@ function createDetailImageElement(item) {
 async function handleDetailImageError(img, title, color) {
   const isbn = img.dataset.isbn;
   if (img.dataset.gbTried) {
-    img.parentElement.innerHTML = `<div class="manga-detail-placeholder" style="background-color:${color};"><span class="manga-placeholder-text">${title}</span></div>`;
+    img.parentElement.innerHTML = `<div class="book-detail-placeholder" style="background-color:${color};"><span class="book-placeholder-text">${title}</span></div>`;
     return;
   }
   if (isbn) {
     img.dataset.gbTried = '1';
     if (coverCache[isbn]) { img.src = coverCache[isbn]; return; }
     if (coverCache[isbn] === false) {
-      img.parentElement.innerHTML = `<div class="manga-detail-placeholder" style="background-color:${color};"><span class="manga-placeholder-text">${title}</span></div>`;
+      img.parentElement.innerHTML = `<div class="book-detail-placeholder" style="background-color:${color};"><span class="book-placeholder-text">${title}</span></div>`;
       return;
     }
     try {
@@ -194,7 +193,7 @@ async function handleDetailImageError(img, title, color) {
     } catch {}
     coverCache[isbn] = false;
   }
-  img.parentElement.innerHTML = `<div class="manga-detail-placeholder" style="background-color:${color};"><span class="manga-placeholder-text">${title}</span></div>`;
+  img.parentElement.innerHTML = `<div class="book-detail-placeholder" style="background-color:${color};"><span class="book-placeholder-text">${title}</span></div>`;
 }
 
 // タイトルからシリーズ名を抽出（巻数・特装版等を除去）

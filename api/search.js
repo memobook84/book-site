@@ -80,13 +80,13 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: 'RAKUTEN_APP_ID not configured' });
   }
 
-  // まずBooksBook APIでtitle検索（コミックジャンル）
+  // まずBooksBook APIでtitle検索（小説・エッセイジャンル）
   const bookParams = new URLSearchParams({
     applicationId: APP_ID,
     accessKey: accessKey,
     formatVersion: '2',
     title: keyword,
-    booksGenreId: '001001',
+    booksGenreId: '001004',
     hits: String(Math.min(parseInt(hits), 30)),
     page: page,
   });

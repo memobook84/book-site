@@ -18,21 +18,21 @@
 }
 
 .volume-image img,
-.volume-image .manga-detail-placeholder {
+.volume-image .book-detail-placeholder {
     width: 300px;
     height: 420px;
     border-radius: 6px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-.volume-image .manga-detail-placeholder {
+.volume-image .book-detail-placeholder {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
 }
 
-.volume-image .manga-detail-placeholder .manga-placeholder-text {
+.volume-image .book-detail-placeholder .book-placeholder-text {
     color: white;
     font-size: 24px;
     font-weight: bold;

@@ -9,7 +9,7 @@ function fetchJson(url) {
       path: parsed.pathname + parsed.search,
       method: 'GET',
       headers: {
-        'User-Agent': 'MangaSite/1.0 (https://manga-site-three.vercel.app)',
+        'User-Agent': 'BookSite/1.0 (https://book-site.vercel.app)',
         'Accept': 'application/json',
       },
     };
@@ -50,7 +50,7 @@ module.exports = async function handler(req, res) {
 
     // Wikipedia検索APIでも試す
     if (summary.type === 'https://mediawiki.org/wiki/HyperSwitch/errors/not_found') {
-      const searchUrl = `https://ja.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(cleanName + ' 漫画家')}&srlimit=1&format=json`;
+      const searchUrl = `https://ja.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(cleanName + ' 作家')}&srlimit=1&format=json`;
       try {
         const searchData = await fetchJson(searchUrl);
         const results = searchData.query?.search || [];

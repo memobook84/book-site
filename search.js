@@ -154,7 +154,7 @@
             var coverHtml = createImageElement(item, 240);
             var titleEncoded = encodeURIComponent(s.seriesName);
 
-            html += '<div class="manga-item" onclick="window.location.href=\'detail.html?title=' + titleEncoded + '\'">'
+            html += '<div class="book-item" onclick="window.location.href=\'detail.html?title=' + titleEncoded + '\'">'
                   + coverHtml
                   + '<h3>' + escapeHtml(s.seriesName) + '</h3>'
                   + '<p class="author">' + escapeHtml(s.author || '') + '</p>'

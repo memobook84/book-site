@@ -5,7 +5,7 @@ const STATIC_ASSETS = [
   '/style.css',
   '/script.js',
   '/rakuten-adapter.js',
-  '/manga-data.js',
+  '/book-data.js',
   '/favicon.png',
   '/logo.png',
 ];

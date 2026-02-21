@@ -7,6 +7,7 @@
     align-items: center;
     position: relative;
     overflow: hidden;
+    background-color: #3450A2;
 }
 
 /* === 雷トグルボタン === */
@@ -26,11 +27,12 @@
     cursor: pointer;
     color: #bbb;
     transition: color 0.2s, border-color 0.2s;
+    touch-action: manipulation;
 }
 
 .lightning-toggle.active {
-    color: #D8052E;
-    border-color: #D8052E;
+    color: #FABE23;
+    border-color: #FABE23;
 }
 
 /* === 雷エフェクト === */
@@ -62,16 +64,16 @@
 }
 
 .search-center .search-logo img {
-    width: 80px;
-    height: 80px;
+    width: 140px;
+    height: 140px;
     object-fit: cover;
 }
 
 .search-title {
     font-family: 'Archivo Black', 'Inter', 'Noto Sans JP', sans-serif;
-    font-size: 36px;
+    font-size: 42px;
     font-weight: 900;
-    color: #D8052E;
+    color: #FABE23;
     margin: 16px 0 28px;
     letter-spacing: -0.01em;
     text-transform: uppercase;
@@ -189,9 +191,20 @@
     padding-left: 4px;
 }
 
-/* グリッドはstyle.cssの.manga-gridを流用 */
+/* グリッドはstyle.cssの.book-gridを流用 */
 
-/* manga-item スタイルはstyle.cssから継承 */
+/* 検索結果のテキスト色（青背景で見やすく） */
+.search-results .book-item h3 {
+    color: #FABE23;
+}
+
+.search-results .book-item .author {
+    color: rgba(250, 190, 35, 0.7);
+}
+
+.search-results .results-info {
+    color: rgba(250, 190, 35, 0.8);
+}
 
 /* === ローディングスピナー === */
 .results-loading {
