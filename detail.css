@@ -61,39 +61,53 @@
 .follow-button {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 12px;
+    position: relative;
     width: 100%;
-    margin-top: 12px;
-    padding: 10px 0;
-    background: rgba(231, 76, 60, 0.06);
-    border: 1.5px solid #e74c3c;
+    margin-top: 14px;
+    padding: 10px 40px 10px 0;
+    background: #fff;
+    border: 1.5px solid #c08a3e;
     border-radius: 0;
     cursor: pointer;
     transition: background 0.2s;
 }
 
 .follow-button:hover {
-    background: rgba(231, 76, 60, 0.12);
+    background: rgba(192, 138, 62, 0.04);
 }
 
 .follow-button .follow-label {
+    flex: 1;
+    text-align: center;
     font-size: 13px;
     font-weight: 600;
-    color: #e74c3c;
-    letter-spacing: 0.05em;
+    color: #c08a3e;
+    letter-spacing: 0.08em;
     transition: color 0.3s;
 }
 
 .follow-button .follow-heart {
-    stroke: #e74c3c;
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    stroke: #c08a3e;
     fill: none;
     transition: fill 0.3s, stroke 0.3s;
 }
 
+.follow-button.followed {
+    border-color: #c08a3e;
+    background: rgba(192, 138, 62, 0.04);
+}
+
 .follow-button.followed .follow-heart {
-    fill: #e74c3c;
-    stroke: #e74c3c;
+    fill: #c08a3e;
+    stroke: #c08a3e;
+}
+
+.follow-button.followed .follow-label {
+    color: #c08a3e;
 }
 
 /* メタ情報 */
