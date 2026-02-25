@@ -57,7 +57,7 @@
     font-weight: 700;
 }
 
-/* フォローボタン（画像の下） */
+/* フォローボタン（ミニマルピル型） */
 .follow-button {
     display: flex;
     align-items: center;
@@ -66,15 +66,15 @@
     width: 100%;
     margin-top: 12px;
     padding: 9px 0;
-    background: transparent;
-    border: 1px solid #999;
-    border-radius: 0;
+    background: #f5f3f0;
+    border: none;
+    border-radius: 20px;
     cursor: pointer;
-    transition: border-color 0.2s;
+    transition: background 0.25s;
 }
 
 .follow-button:hover {
-    border-color: #666;
+    background: #eceae6;
 }
 
 .follow-button .heart-icon {
@@ -90,13 +90,21 @@
     transition: color 0.3s;
 }
 
+.follow-button.followed {
+    background: rgba(231, 76, 60, 0.08);
+}
+
+.follow-button.followed:hover {
+    background: rgba(231, 76, 60, 0.12);
+}
+
 .follow-button.followed .heart-icon {
     fill: #e74c3c;
     stroke: #e74c3c;
 }
 
 .follow-button.followed .follow-label {
-    color: var(--color-text);
+    color: #d44637;
 }
 
 /* メタ情報 */
