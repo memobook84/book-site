@@ -66,14 +66,14 @@
     margin-top: 14px;
     padding: 10px 0;
     background: #fff;
-    border: 1.5px solid #c08a3e;
+    border: 1.5px solid #3450A2;
     border-radius: 0;
     cursor: pointer;
     transition: background 0.2s;
 }
 
 .follow-button:hover {
-    background: rgba(192, 138, 62, 0.04);
+    background: rgba(52, 80, 162, 0.04);
 }
 
 .follow-button .follow-label {
@@ -81,7 +81,7 @@
     text-align: center;
     font-size: 13px;
     font-weight: 600;
-    color: #c08a3e;
+    color: #3450A2;
     letter-spacing: 0.08em;
     transition: color 0.3s;
 }
@@ -98,7 +98,7 @@
 .cross-h,
 .cross-v {
     position: absolute;
-    background: #c08a3e;
+    background: #3450A2;
     transition: transform 0.3s;
 }
 
@@ -118,12 +118,22 @@
     transform: translateX(-50%);
 }
 
-.follow-button.followed .cross-v {
-    transform: translateX(-50%) rotate(90deg);
+.follow-button.followed {
+    background: #3450A2;
+    border-color: #3450A2;
 }
 
 .follow-button.followed .follow-label {
-    color: #c08a3e;
+    color: #fff;
+}
+
+.follow-button.followed .cross-h,
+.follow-button.followed .cross-v {
+    background: #fff;
+}
+
+.follow-button.followed .cross-v {
+    transform: translateX(-50%) rotate(90deg);
 }
 
 /* メタ情報 */
