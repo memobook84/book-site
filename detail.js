@@ -24,6 +24,50 @@ function extractVolumeNumber(title) {
     return null;
 }
 
+// 表紙画像の色からグラデーション背景を動的生成
+function applyHeroGradient(color) {
+    const hero = document.getElementById('hero-section');
+    if (!hero || !color) return;
+
+    // 色を薄くしてグラデーションに使用
+    const hex = color.replace('#', '');
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+
+    // 薄い色（白に近づける）
+    const lightR = Math.round(r + (255 - r) * 0.75);
+    const lightG = Math.round(g + (255 - g) * 0.75);
+    const lightB = Math.round(b + (255 - b) * 0.75);
+
+    hero.style.background = `linear-gradient(180deg, rgb(${lightR}, ${lightG}, ${lightB}) 0%, #ffffff 100%)`;
+}
+
+// あらすじ折りたたみ機能
+function setupSynopsisToggle() {
+    const wrapper = document.getElementById('synopsis-wrapper');
+    const toggle = document.getElementById('synopsis-toggle');
+    if (!wrapper || !toggle) return;
+
+    // テキストの高さが制限超えるか判定
+    requestAnimationFrame(() => {
+        const scrollH = wrapper.scrollHeight;
+        const maxH = 120;
+
+        if (scrollH > maxH + 20) {
+            toggle.style.display = 'block';
+        } else {
+            toggle.style.display = 'none';
+            wrapper.classList.add('expanded');
+        }
+    });
+
+    toggle.addEventListener('click', () => {
+        const isExpanded = wrapper.classList.toggle('expanded');
+        toggle.textContent = isExpanded ? '閉じる' : 'もっと見る';
+    });
+}
+
 // 作品の詳細を表示（メイン処理 — シリーズページ）
 async function displayBookDetail() {
     const { title } = getDetailParams();
@@ -61,29 +105,30 @@ async function displayBookDetail() {
     const volumes = filtered.length > 0 ? filtered : allVolumes;
 
     // --- シリーズ情報を集約 ---
-
-    // タイトル
     const displaySeriesName = seriesName || title;
     document.title = `${displaySeriesName} - THE BOOK STORE`;
+
+    // タイトル
     document.getElementById('book-title').textContent = displaySeriesName;
 
-    // 著者・出版社・レーベル: 最初の巻から取得
+    // 著者
     const firstVol = volumes[0];
     const authorLink = document.getElementById('book-author');
     authorLink.textContent = firstVol.author || '-';
     authorLink.href = `author.html?name=${encodeURIComponent(firstVol.author || '')}`;
 
-    document.getElementById('book-publisher').textContent = firstVol.publisher || '-';
-    document.getElementById('book-label').textContent = firstVol.label || firstVol.seriesName || '-';
-    document.getElementById('book-genre').textContent = firstVol.genre || '-';
+    // メタ情報ピル
+    document.getElementById('pill-volumes').textContent = `${volumes.length}巻`;
+    document.getElementById('pill-publisher').textContent = firstVol.publisher || '-';
+    document.getElementById('pill-genre').textContent = firstVol.genre || '-';
+    document.getElementById('pill-label').textContent = firstVol.label || firstVol.seriesName || '-';
+    document.getElementById('meta-bar').style.display = 'flex';
 
-    // 巻数表示
-    document.getElementById('book-date').textContent = `${volumes.length}巻`;
-
-    // あらすじ: descriptionが空でない最初の巻から取得
+    // あらすじ
     const withDescription = volumes.find(v => v.description && v.description.trim() !== '');
     document.getElementById('book-description').textContent =
         (withDescription ? withDescription.description : '') || 'あらすじ情報がありません。';
+    document.getElementById('synopsis-section').style.display = 'block';
 
     // 表紙画像: 実カバーがある巻から選択（最新巻除外）
     const sortedByDate = [...volumes].sort((a, b) => {
@@ -96,11 +141,23 @@ async function displayBookDetail() {
     const coverPool = withCover.length > 0 ? withCover : nonLatest;
     const coverVol = coverPool[Math.floor(Math.random() * coverPool.length)];
 
-    const imageContainer = document.querySelector('.detail-image');
-    imageContainer.innerHTML = createDetailImageElement({
+    // ヒーローカバー画像を挿入
+    const heroCover = document.getElementById('hero-cover');
+    heroCover.innerHTML = createDetailImageElement({
         ...coverVol,
         title: displaySeriesName,
     });
+
+    // 背景グラデーションを適用
+    applyHeroGradient(coverVol.color);
+
+    // 購入ボタンの設定
+    const rakutenBtn = document.getElementById('rakuten-button');
+    const amazonBtn = document.getElementById('amazon-button');
+    const searchQuery = encodeURIComponent(displaySeriesName);
+    rakutenBtn.href = `https://search.rakuten.co.jp/search/mall/${searchQuery}/?s=11`;
+    amazonBtn.href = `https://www.amazon.co.jp/s?k=${searchQuery}`;
+    document.getElementById('action-buttons').style.display = 'flex';
 
     // フォローボタンの設定
     setupFollowButton({
@@ -108,20 +165,24 @@ async function displayBookDetail() {
         title: displaySeriesName,
     });
 
+    // あらすじ折りたたみ
+    setupSynopsisToggle();
+
     // --- 巻一覧を表示 ---
     displayVolumesList(volumes);
+    document.getElementById('volumes-section').style.display = 'block';
 
     // 表紙がない画像をGoogle Books APIでアップグレード
     upgradeCovers();
 }
 
-// 巻一覧を表示（巻数でソート、volume.htmlへリンク）
+// 巻一覧を横スクロールカルーセルで表示
 function displayVolumesList(volumes) {
-    const volumesGrid = document.getElementById('volumes-grid');
-    volumesGrid.innerHTML = '';
+    const carousel = document.getElementById('volumes-carousel');
+    carousel.innerHTML = '';
 
     if (volumes.length === 0) {
-        volumesGrid.innerHTML = '<p style="text-align:center;grid-column:1/-1;padding:20px;color:var(--color-text-sub);">巻情報が見つかりませんでした</p>';
+        carousel.innerHTML = '<p style="text-align:center;padding:20px;color:var(--color-text-sub);">巻情報が見つかりませんでした</p>';
         return;
     }
 
@@ -142,7 +203,7 @@ function displayVolumesList(volumes) {
         const volumeItem = document.createElement('div');
         volumeItem.className = 'volume-item';
 
-        const imageHtml = createImageElement(vol, 280);
+        const imageHtml = createImageElement(vol, 185);
         const volumeLabel = vol.volumeNum !== null ? `${vol.volumeNum}巻` : vol.title;
 
         volumeItem.innerHTML = `
@@ -160,7 +221,7 @@ function displayVolumesList(volumes) {
             }
         });
 
-        volumesGrid.appendChild(volumeItem);
+        carousel.appendChild(volumeItem);
     });
 }
 
