@@ -68,7 +68,7 @@
     padding: 9px 0;
     background: #f5f3f0;
     border: none;
-    border-radius: 20px;
+    border-radius: 0;
     cursor: pointer;
     transition: background 0.25s;
 }
