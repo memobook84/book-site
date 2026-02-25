@@ -67,14 +67,14 @@
     margin-top: 12px;
     padding: 9px 0;
     background: transparent;
-    border: 1px solid var(--color-border);
-    border-radius: 6px;
+    border: 1px solid #999;
+    border-radius: 0;
     cursor: pointer;
     transition: border-color 0.2s;
 }
 
 .follow-button:hover {
-    border-color: #ccc;
+    border-color: #666;
 }
 
 .follow-button .heart-icon {
