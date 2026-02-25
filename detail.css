@@ -335,13 +335,13 @@
 
     .detail-image img {
         width: 100%;
-        max-width: 300px;
+        max-width: 225px;
         margin: 0 auto;
         display: block;
     }
 
     .follow-button {
-        max-width: 300px;
+        max-width: 225px;
     }
 
     .detail-title {
