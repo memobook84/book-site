@@ -46,55 +46,64 @@
     flex: 1;
 }
 
-/* タイトルとフォローボタン */
-.title-with-follow {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 24px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--color-border);
-}
-
+/* タイトル */
 .detail-title {
     font-size: 30px;
     color: var(--color-text);
-    margin-bottom: 0;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--color-border);
     line-height: 1.4;
-    flex: 1;
     font-family: var(--font-heading);
     font-weight: 700;
 }
 
-/* フォローボタン（ハート） */
+/* フォローボタン（画像の下、ボタン型） */
 .follow-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    margin-top: 12px;
+    padding: 10px 0;
     background: transparent;
-    border: none;
+    border: 1.5px solid var(--color-border);
+    border-radius: 8px;
     cursor: pointer;
-    padding: 5px;
-    transition: transform 0.2s;
-    flex-shrink: 0;
+    transition: background 0.2s, border-color 0.2s;
 }
 
 .follow-button:hover {
-    transform: scale(1.15) rotate(15deg);
-    animation: sparkle 0.5s ease-in-out;
-}
-
-@keyframes sparkle {
-    0%, 100% { transform: scale(1) rotate(0deg); }
-    50% { transform: scale(1.2) rotate(15deg); }
+    background: rgba(0, 0, 0, 0.03);
+    border-color: #ccc;
 }
 
 .follow-button .heart-icon {
     stroke: #999;
     fill: none;
-    transition: fill 0.3s, stroke 0.3s, transform 0.3s;
+    transition: fill 0.3s, stroke 0.3s;
+}
+
+.follow-button .follow-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-sub);
+    transition: color 0.3s;
+}
+
+.follow-button.followed {
+    border-color: #e74c3c;
+    background: rgba(231, 76, 60, 0.05);
 }
 
 .follow-button.followed .heart-icon {
     fill: #e74c3c;
     stroke: #e74c3c;
+}
+
+.follow-button.followed .follow-label {
+    color: #e74c3c;
 }
 
 /* メタ情報 */
@@ -288,11 +297,21 @@
         padding: 20px;
     }
 
+    .detail-image {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     .detail-image img {
         width: 100%;
         max-width: 300px;
         margin: 0 auto;
         display: block;
+    }
+
+    .follow-button {
+        max-width: 300px;
     }
 
     .detail-title {
