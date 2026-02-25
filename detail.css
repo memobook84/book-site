@@ -85,31 +85,15 @@
     transition: color 0.3s;
 }
 
-.follow-button .follow-arrow {
+.follow-button .follow-heart {
     stroke: #e74c3c;
-    transition: stroke 0.3s, transform 0.2s;
+    fill: none;
+    transition: fill 0.3s, stroke 0.3s;
 }
 
-.follow-button:hover .follow-arrow {
-    transform: translateX(2px);
-}
-
-.follow-button.followed {
-    background: #e74c3c;
-    border-color: #e74c3c;
-}
-
-.follow-button.followed:hover {
-    background: #d44637;
-    border-color: #d44637;
-}
-
-.follow-button.followed .follow-label {
-    color: #fff;
-}
-
-.follow-button.followed .follow-arrow {
-    stroke: #fff;
+.follow-button.followed .follow-heart {
+    fill: #e74c3c;
+    stroke: #e74c3c;
 }
 
 /* メタ情報 */
