@@ -46,8 +46,7 @@
     <!-- ランキングページコンテンツ -->
     <main class="ranking-main">
         <div class="page-header">
-            <h1>売れ筋ランキング</h1>
-            <p class="subtitle">人気の小説をチェック</p>
+            <h1>Ranking</h1>
         </div>
 
         <div class="ranking-container">
@@ -56,9 +55,6 @@
             </div>
         </div>
 
-        <div class="back-button-container">
-            <a href="home.html" class="back-button">← トップページに戻る</a>
-        </div>
     </main>
 
     <!-- ボトムナビ -->
@@ -67,7 +63,7 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
             <span>Back</span>
         </a>
-        <a href="/" class="bottom-nav-item" data-page="home">
+        <a href="/home.html" class="bottom-nav-item" data-page="home">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             <span>Home</span>
         </a>
@@ -91,7 +87,7 @@
         var items = document.querySelectorAll('.bottom-nav-item');
         items.forEach(function(item) {
             var page = item.dataset.page;
-            if ((page === 'home' && (path === '/' || path === '/index.html')) ||
+            if ((page === 'home' && (path === '/' || path.includes('home'))) ||
                 (page === 'new-releases' && path.includes('new-releases')) ||
                 (page === 'ranking' && path.includes('ranking')) ||
                 (page === 'follow' && path.includes('follow'))) {

@@ -78,6 +78,12 @@ header {
     border-radius: 0;
 }
 
+@media (max-width: 768px) {
+    .header-logo-img {
+        border-radius: 6px;
+    }
+}
+
 header h1 {
     color: #3450A2;
     font-size: 28px;
@@ -305,37 +311,38 @@ main {
 .book-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 40px 24px;
+    gap: 30px 18px;
 }
 
 .book-item {
     overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s;
     cursor: pointer;
-    background-color: var(--color-card);
-    border-radius: 6px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
     display: flex;
     flex-direction: column;
 }
 
 .book-item:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
 }
 
 .book-item img {
     width: 100%;
-    height: 240px;
+    height: 180px;
     object-fit: contain;
     object-position: bottom;
     display: block;
     flex-shrink: 0;
+    border-radius: 3px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
 }
 
 .book-placeholder {
     width: 100%;
-    height: 280px;
+    height: 210px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -402,8 +409,8 @@ main {
 }
 
 .book-item h3 {
-    padding: 4px 8px 2px 8px;
-    font-size: 14px;
+    padding: 3px 6px 1px 6px;
+    font-size: 13px;
     font-weight: 400;
     text-align: center;
     color: var(--color-text);
@@ -412,8 +419,8 @@ main {
 }
 
 .book-item .author {
-    padding: 0 8px 6px 8px;
-    font-size: 12px;
+    padding: 0 6px 4px 6px;
+    font-size: 11px;
     text-align: center;
     color: var(--color-text-sub);
     margin: 0;
@@ -438,14 +445,24 @@ main {
 
 @media (max-width: 768px) {
     .book-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
     }
 
     .book-item img {
         height: auto;
         object-fit: cover;
         object-position: center;
+    }
+
+    .book-item h3 {
+        padding: 2px 4px 1px 4px;
+        font-size: 10px;
+    }
+
+    .book-item .author {
+        padding: 0 4px 3px 4px;
+        font-size: 9px;
     }
 
     .book-placeholder,
@@ -509,7 +526,7 @@ main {
 
 .skeleton-image {
     width: 100%;
-    height: 280px;
+    height: 210px;
     background: linear-gradient(90deg, #eee 25%, #e0e0e0 50%, #eee 75%);
     background-size: 200% 100%;
     animation: skeleton-loading 1.5s infinite;
@@ -704,6 +721,24 @@ main {
     font-size: 14px;
     color: var(--color-text-sub);
     font-weight: 500;
+}
+
+/* ページヘッダー（共通） */
+.page-header {
+    padding: 20px 0 0;
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    font-size: 28px;
+    color: var(--color-text);
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #d5d5d5;
+    font-family: 'Archivo Black', 'Inter', 'Noto Sans JP', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
 }
 
 /* ボトムナビゲーション（アプリ用） */
