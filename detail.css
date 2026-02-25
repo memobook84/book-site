@@ -86,24 +86,40 @@
     transition: color 0.3s;
 }
 
-.follow-button .follow-heart {
+.follow-cross {
     position: absolute;
     right: -10px;
     top: 50%;
     transform: translateY(-50%);
-    stroke: #c08a3e;
-    fill: none;
-    transition: fill 0.3s, stroke 0.3s;
+    width: 20px;
+    height: 20px;
 }
 
-.follow-button.followed {
-    border-color: #c08a3e;
-    background: rgba(192, 138, 62, 0.04);
+.cross-h,
+.cross-v {
+    position: absolute;
+    background: #c08a3e;
+    transition: transform 0.3s;
 }
 
-.follow-button.followed .follow-heart {
-    fill: #c08a3e;
-    stroke: #c08a3e;
+.cross-h {
+    width: 20px;
+    height: 1.5px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.cross-v {
+    width: 1.5px;
+    height: 20px;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+}
+
+.follow-button.followed .cross-v {
+    transform: translateX(-50%) rotate(90deg);
 }
 
 .follow-button.followed .follow-label {
