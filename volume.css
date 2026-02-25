@@ -72,40 +72,48 @@
     font-family: var(--font-heading);
 }
 
-/* メタ情報 */
-.volume-meta {
+/* メタ情報（サイドライン型 - detail.cssと共通） */
+.detail-meta-sideline {
     margin-bottom: 30px;
-    padding: 10px 0;
+    padding: 4px 0;
 }
 
-.meta-item {
-    margin-bottom: 12px;
-    font-size: 15px;
+.meta-row {
+    display: flex;
+    align-items: baseline;
+    padding: 10px 0 10px 20px;
+    transition: background 0.2s;
+    border-radius: 0 6px 6px 0;
 }
 
-.meta-item:last-child {
-    margin-bottom: 0;
+.meta-row:hover {
+    background: rgba(0, 0, 0, 0.025);
 }
 
-.meta-label {
+.meta-row-label {
+    width: 100px;
+    flex-shrink: 0;
+    font-size: 13px;
     font-weight: 500;
     color: var(--color-text-sub);
-    min-width: 100px;
-    display: inline-block;
+    letter-spacing: 0.02em;
 }
 
-.meta-value {
+.meta-row-value {
+    font-size: 15px;
+    font-weight: 600;
     color: var(--color-text);
 }
 
-.author-link {
+.meta-row .author-link {
     color: #6cb4ee;
     text-decoration: none;
+    font-size: 15px;
     font-weight: 600;
-    transition: color 0.3s;
+    transition: color 0.2s;
 }
 
-.author-link:hover {
+.meta-row .author-link:hover {
     color: #4a9de0;
     text-decoration: underline;
 }
@@ -119,7 +127,7 @@
     font-size: 20px;
     color: var(--color-text);
     margin-bottom: 15px;
-    border-left: 3px solid var(--color-text);
+    border-left: 1px solid var(--color-border);
     padding-left: 12px;
     font-family: var(--font-heading);
     font-weight: 600;
