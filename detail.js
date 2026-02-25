@@ -96,11 +96,14 @@ async function displayBookDetail() {
     const coverPool = withCover.length > 0 ? withCover : nonLatest;
     const coverVol = coverPool[Math.floor(Math.random() * coverPool.length)];
 
+    // 表紙画像のみ差し替え（フォローボタンは残す）
     const imageContainer = document.querySelector('.detail-image');
+    const followBtn = document.getElementById('follow-button');
     imageContainer.innerHTML = createDetailImageElement({
         ...coverVol,
         title: displaySeriesName,
     });
+    if (followBtn) imageContainer.appendChild(followBtn);
 
     // フォローボタンの設定
     setupFollowButton({
