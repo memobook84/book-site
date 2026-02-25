@@ -181,7 +181,8 @@ function setupFollowButton(manga) {
 
     followButton.addEventListener('click', () => {
         toggleFollow(manga, followButton);
-        if (label) label.textContent = followButton.classList.contains('followed') ? 'Following' : 'Follow';
+        const nowFollowed = followButton.classList.contains('followed');
+        if (label) label.textContent = nowFollowed ? 'Following' : 'Follow';
     });
 }
 
