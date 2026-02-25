@@ -730,8 +730,8 @@ main {
 }
 
 .page-header h1 {
-    font-size: 28px;
-    color: var(--color-text);
+    font-size: 20px;
+    color: #888;
     margin-bottom: 12px;
     padding-bottom: 12px;
     border-bottom: 1px solid #d5d5d5;
