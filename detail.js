@@ -176,12 +176,12 @@ function setupFollowButton(manga) {
     const isFollowed = followedBooks.some(m => m.title === manga.title);
     if (isFollowed) {
         followButton.classList.add('followed');
-        if (label) label.textContent = 'フォロー中';
+        if (label) label.textContent = 'Following';
     }
 
     followButton.addEventListener('click', () => {
         toggleFollow(manga, followButton);
-        if (label) label.textContent = followButton.classList.contains('followed') ? 'フォロー中' : 'フォローする';
+        if (label) label.textContent = followButton.classList.contains('followed') ? 'Following' : 'Follow';
     });
 }
 

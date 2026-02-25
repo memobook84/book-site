@@ -63,38 +63,51 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 7px;
     width: 100%;
-    margin-top: 12px;
-    padding: 10px 0;
-    background: transparent;
-    border: 1.5px solid var(--color-border);
-    border-radius: 8px;
+    margin-top: 14px;
+    padding: 11px 0;
+    background: linear-gradient(135deg, #f8f7f5 0%, #edeae6 100%);
+    border: none;
+    border-radius: 12px;
     cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: all 0.25s ease;
 }
 
 .follow-button:hover {
-    background: rgba(0, 0, 0, 0.03);
-    border-color: #ccc;
+    background: linear-gradient(135deg, #f0eeeb 0%, #e4e0db 100%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.follow-button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
 }
 
 .follow-button .heart-icon {
-    stroke: #999;
+    stroke: #aaa;
     fill: none;
-    transition: fill 0.3s, stroke 0.3s;
+    transition: fill 0.3s, stroke 0.3s, transform 0.3s;
 }
 
 .follow-button .follow-label {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: var(--color-text-sub);
+    letter-spacing: 0.04em;
     transition: color 0.3s;
 }
 
 .follow-button.followed {
-    border-color: #e74c3c;
-    background: rgba(231, 76, 60, 0.05);
+    background: linear-gradient(135deg, #fdf0ef 0%, #f9e2e0 100%);
+    box-shadow: 0 1px 4px rgba(231, 76, 60, 0.15);
+}
+
+.follow-button.followed:hover {
+    background: linear-gradient(135deg, #fbe5e3 0%, #f5d5d2 100%);
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.18);
 }
 
 .follow-button.followed .heart-icon {
@@ -103,7 +116,7 @@
 }
 
 .follow-button.followed .follow-label {
-    color: #e74c3c;
+    color: #d44637;
 }
 
 /* メタ情報 */
