@@ -121,6 +121,7 @@
 /* この巻について */
 .volume-description {
     margin-bottom: 30px;
+    padding: 0 30px;
 }
 
 .volume-description h2 {
@@ -145,6 +146,7 @@
     display: flex;
     gap: 15px;
     margin-bottom: 30px;
+    padding: 0 30px;
 }
 
 .buy-button {
@@ -190,7 +192,7 @@
     gap: 12px;
     margin-top: 28px;
     margin-bottom: 8px;
-    padding: 14px 0;
+    padding: 14px 30px;
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
 }
@@ -259,6 +261,7 @@
     display: flex;
     gap: 20px;
     margin-top: 24px;
+    padding: 0 30px;
 }
 
 .nav-button {
@@ -296,12 +299,22 @@
         font-size: 20px;
     }
 
+    .volume-description {
+        padding: 0 20px;
+    }
+
     .volume-buttons {
         flex-direction: column;
+        padding: 0 20px;
+    }
+
+    .volume-slider {
+        padding: 14px 20px;
     }
 
     .navigation-buttons {
         flex-direction: column;
         gap: 10px;
+        padding: 0 20px;
     }
 }
