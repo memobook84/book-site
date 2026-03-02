@@ -72,8 +72,8 @@ header {
 /* ヘッダーロゴ（位置調整は.header-container直後で定義） */
 
 .header-logo-img {
-    height: 28px;
-    width: 28px;
+    height: 34px;
+    width: 34px;
     object-fit: contain;
     border-radius: 0;
 }
@@ -86,7 +86,7 @@ header {
 
 header h1 {
     color: #3450A2;
-    font-size: 28px;
+    font-size: 34px;
     font-weight: 900;
     margin-right: auto;
     font-family: 'Archivo Black', 'Inter', 'Noto Sans JP', sans-serif;
