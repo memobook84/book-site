@@ -70,6 +70,8 @@ async function displayVolumeDetail() {
     document.getElementById('volume-label').textContent = volume.label || volume.seriesName || '-';
     document.getElementById('volume-date').textContent = volume.firstReleaseDate || '-';
     document.getElementById('volume-price').textContent = volume.price || '-';
+    document.getElementById('volume-isbn').textContent = volume.isbn || '-';
+    document.getElementById('volume-pagecount').textContent = volume.pageCount ? `${volume.pageCount}ページ` : '-';
     document.getElementById('volume-synopsis').textContent = volume.description || 'この巻の情報はありません。';
 
     // 購入ボタンのリンクを設定

@@ -80,10 +80,10 @@ async function displayBookDetail() {
     // 巻数表示
     document.getElementById('book-date').textContent = `${volumes.length}巻`;
 
-    // あらすじ: descriptionが空でない最初の巻から取得
+    // 作品紹介: descriptionが空でない最初の巻から取得
     const withDescription = volumes.find(v => v.description && v.description.trim() !== '');
     document.getElementById('book-description').textContent =
-        (withDescription ? withDescription.description : '') || 'あらすじ情報がありません。';
+        (withDescription ? withDescription.description : '') || '作品紹介情報がありません。';
 
     // 表紙画像: 実カバーがある巻から選択（最新巻除外）
     const sortedByDate = [...volumes].sort((a, b) => {

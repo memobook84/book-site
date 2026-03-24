@@ -38,6 +38,7 @@ function adaptItem(item, index) {
     isbn: item.isbn || '',
     itemUrl: item.itemUrl || '',
     seriesName: item.seriesName || item.label || '',
+    pageCount: item.pageCount || 0,
     // プレースホルダー用のカラー（画像がない場合のフォールバック）
     color: generateColor(item.title || '', index),
   };
@@ -149,7 +150,7 @@ function createDetailImageElement(item) {
   const isbn = item.isbn || '';
   const dataIsbn = isbn ? `data-isbn="${isbn}"` : '';
   const needsUpgrade = (!item.hasRealCover && isbn) ? 'data-needs-upgrade="1"' : '';
-  const imgStyle = "width:300px;height:420px;object-fit:contain;background:#f5f3f0;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,0.15);";
+  const imgStyle = "width:300px;height:420px;object-fit:contain;border-radius:6px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.2));";
 
   if (item.imageUrl) {
     return `<img src="${item.imageUrl}" alt="${item.title}"

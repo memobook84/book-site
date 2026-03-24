@@ -63,6 +63,7 @@ function mapItem(item) {
     isbn: item.isbn || '',
     itemUrl: item.itemUrl || '',
     seriesName: item.seriesName || '',
+    pageCount: item.itemCount || 0,
   };
 }
 
