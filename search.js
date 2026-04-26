@@ -154,7 +154,10 @@
             var coverHtml = createImageElement(item, 240);
             var titleEncoded = encodeURIComponent(s.seriesName);
 
-            html += '<div class="book-item" onclick="window.location.href=\'detail.html?title=' + titleEncoded + '\'">'
+            var isbnEncoded = item && item.isbn ? encodeURIComponent(item.isbn) : '';
+            var itemTitleEncoded = item ? encodeURIComponent(item.title || s.seriesName) : titleEncoded;
+            var volumeUrl = 'volume.html?isbn=' + isbnEncoded + '&title=' + itemTitleEncoded + '&series=' + titleEncoded;
+            html += '<div class="book-item" onclick="window.location.href=\'' + volumeUrl + '\'">'
                   + coverHtml
                   + '<h3>' + escapeHtml(s.seriesName) + '</h3>'
                   + '<p class="author">' + escapeHtml(s.author || '') + '</p>'

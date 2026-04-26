@@ -152,7 +152,7 @@ function createRankingSection(rankingItems, startRank, title) {
         el.addEventListener('click', () => {
             const item = rankingItems[i];
             const seriesTitle = item.displayTitle || item.title;
-            window.location.href = `detail.html?title=${encodeURIComponent(seriesTitle)}`;
+            window.location.href = `volume.html?isbn=${encodeURIComponent(item.isbn || '')}&title=${encodeURIComponent(item.title || seriesTitle)}&series=${encodeURIComponent(seriesTitle)}`;
         });
     });
 
@@ -190,7 +190,7 @@ function displayBookItems(items) {
 
         bookItem.addEventListener('click', () => {
             const seriesTitle = item.displayTitle || item.title;
-            window.location.href = `detail.html?title=${encodeURIComponent(seriesTitle)}`;
+            window.location.href = `volume.html?isbn=${encodeURIComponent(item.isbn || '')}&title=${encodeURIComponent(item.title || seriesTitle)}&series=${encodeURIComponent(seriesTitle)}`;
         });
 
         gridContainer.appendChild(bookItem);

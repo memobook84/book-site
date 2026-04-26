@@ -1,0 +1,100 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+
+#scatter-container {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+.scatter-book {
+    position: absolute;
+    cursor: pointer;
+    transform-origin: center center;
+    border-radius: 3px;
+    box-shadow: 2px 4px 16px rgba(0,0,0,0.18);
+    transition:
+        transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        box-shadow 0.35s ease,
+        filter 0.35s ease;
+    filter: brightness(1);
+}
+
+.scatter-book:hover {
+    z-index: 999 !important;
+    box-shadow: 8px 24px 48px rgba(0,0,0,0.28), 0 2px 8px rgba(0,0,0,0.12);
+    filter: brightness(1.06);
+}
+
+.scatter-book img {
+    display: block;
+    border-radius: 3px;
+    pointer-events: none;
+}
+
+.scatter-book .placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    padding: 12px;
+}
+
+.scatter-book .placeholder span {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    word-break: break-all;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+    font-family: sans-serif;
+    line-height: 1.4;
+}
+
+/* モバイル：グリッドレイアウトに切り替え */
+@media (max-width: 768px) {
+    #scatter-container {
+        position: static;
+        height: auto !important;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        padding: 16px;
+        padding-bottom: 80px;
+    }
+
+    .scatter-book {
+        position: static !important;
+        width: 100% !important;
+        height: auto !important;
+        transform: none !important;
+        left: auto !important;
+        top: auto !important;
+        z-index: auto !important;
+        box-shadow: 2px 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .scatter-book:hover {
+        transform: scale(1.03) !important;
+    }
+
+    .scatter-book img {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 2 / 3;
+        object-fit: cover;
+    }
+
+    .scatter-book .placeholder {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 2 / 3;
+    }
+}

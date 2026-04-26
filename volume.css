@@ -1,7 +1,7 @@
 /* 巻詳細ページ専用のスタイル */
 
 .volume-main {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 40px auto;
     padding: 0 20px;
 }
@@ -15,14 +15,51 @@
 /* 左側：表紙画像 */
 .volume-image {
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.volume-image-3d {
+    perspective: 1200px;
+    margin-bottom: 16px;
 }
 
 .volume-image img,
 .volume-image .book-detail-placeholder {
     width: 300px;
     height: 420px;
-    border-radius: 6px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 2px 6px 6px 2px;
+    display: block;
+    transform: rotateY(-8deg);
+    transform-origin: left center;
+    box-shadow:
+        6px 6px 20px rgba(0,0,0,0.25),
+        12px 12px 40px rgba(0,0,0,0.15),
+        inset -4px 0 12px rgba(0,0,0,0.12);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
+}
+
+.volume-image img::after,
+.volume-image .book-detail-placeholder::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 18px;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0.18), rgba(0,0,0,0.04));
+    border-radius: 2px 0 0 2px;
+    pointer-events: none;
+}
+
+.volume-image-3d:hover img,
+.volume-image-3d:hover .book-detail-placeholder {
+    transform: rotateY(-3deg);
+    box-shadow:
+        10px 10px 30px rgba(0,0,0,0.22),
+        20px 20px 60px rgba(0,0,0,0.12),
+        inset -4px 0 12px rgba(0,0,0,0.1);
 }
 
 .volume-image .book-detail-placeholder {
@@ -44,6 +81,8 @@
 /* 右側：詳細情報 */
 .volume-info-detail {
     flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .volume-title-row {
@@ -61,13 +100,13 @@
     margin-bottom: 0;
     line-height: 1.4;
     font-family: var(--font-heading);
-    font-weight: 700;
+    font-weight: 400;
 }
 
 .volume-number-display {
     font-size: 20px;
     color: var(--color-text-sub);
-    font-weight: 600;
+    font-weight: 400;
     white-space: nowrap;
     font-family: var(--font-heading);
 }
@@ -101,7 +140,7 @@
 
 .meta-row-value {
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 400;
     color: var(--color-text);
 }
 
@@ -109,7 +148,7 @@
     color: #6cb4ee;
     text-decoration: none;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 400;
     transition: color 0.2s;
 }
 
@@ -144,43 +183,112 @@
 /* 購入ボタン */
 .volume-buttons {
     display: flex;
-    gap: 15px;
-    margin-bottom: 30px;
-    padding: 0 30px;
+    gap: 10px;
+    margin-top: auto;
+    padding: 0;
+    justify-content: flex-end;
+}
+
+.follow-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: auto;
+    padding: 14px 24px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    letter-spacing: 0.05em;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    margin-top: 0;
+}
+
+.follow-btn:hover {
+    background: #f5f5f5;
+}
+
+.follow-btn.followed {
+    background: #3450A2;
+    color: #fff;
+    border-color: #3450A2;
+}
+
+.follow-label {
+    letter-spacing: 0.05em;
+}
+
+.follow-cross {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+.cross-h, .cross-v {
+    position: absolute;
+    background: currentColor;
+    border-radius: 1px;
+}
+
+.cross-h {
+    width: 14px;
+    height: 2px;
+    top: 6px;
+    left: 0;
+}
+
+.cross-v {
+    width: 2px;
+    height: 14px;
+    top: 0;
+    left: 6px;
+    transition: transform 0.2s;
+}
+
+.follow-btn.followed .cross-v {
+    transform: rotate(45deg);
 }
 
 .buy-button {
-    flex: 1;
-    padding: 15px 30px;
-    border-radius: 6px;
+    padding: 14px 28px;
+    border-radius: 0;
     text-align: center;
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 700;
     text-decoration: none;
-    color: white;
-    transition: transform 0.2s, box-shadow 0.2s;
+    color: #111;
+    background: #f5f5f5;
+    border: 1px solid #ccc;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: background 0.2s;
 }
 
 .buy-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    background: #e8e8e8;
 }
 
 .rakuten-button {
-    background-color: #BF0000;
+    background: #f5f5f5;
 }
 
 .rakuten-button:hover {
-    background-color: #A00000;
+    background: #e8e8e8;
 }
 
 .amazon-button {
-    background-color: #FF9900;
+    background: #f5f5f5;
     color: #111;
 }
 
 .amazon-button:hover {
-    background-color: #E68A00;
+    background: #e8e8e8;
     color: #111;
 }
 
@@ -277,6 +385,49 @@
     text-decoration: underline;
 }
 
+/* 関連作品 */
+.related-section {
+    margin-top: 48px;
+    padding: 0 30px;
+    border-top: 1px solid var(--color-border);
+    padding-top: 40px;
+}
+
+.related-title {
+    font-size: 20px;
+    color: var(--color-text);
+    margin-bottom: 20px;
+    border-left: 1px solid var(--color-border);
+    padding-left: 12px;
+    font-family: var(--font-heading);
+    font-weight: 600;
+}
+
+.related-grid {
+    margin-bottom: 40px;
+}
+
+/* シリーズ一覧 */
+.series-list-section {
+    margin-top: 40px;
+    padding: 0 30px 40px;
+}
+
+.series-list-title {
+    font-size: 20px;
+    color: var(--color-text);
+    margin-bottom: 20px;
+    border-left: 1px solid var(--color-border);
+    padding-left: 12px;
+    font-family: var(--font-heading);
+    font-weight: 600;
+}
+
+.volume-item--active {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 /* レスポンシブデザイン */
 @media (max-width: 768px) {
     .volume-container {
@@ -284,15 +435,36 @@
         padding: 20px;
     }
 
-    .volume-image img {
+    .volume-image {
         width: 100%;
-        max-width: 225px;
-        margin: 0 auto;
-        display: block;
+        align-items: center;
+    }
+
+    .volume-image-3d {
+        width: 50vw;
+        max-width: 200px;
+    }
+
+    .volume-image img,
+    .volume-image .book-detail-placeholder {
+        width: 50vw !important;
+        max-width: 200px !important;
+        height: auto !important;
+        aspect-ratio: 2 / 3;
+        transform: none !important;
+        box-shadow: 2px 4px 16px rgba(0,0,0,0.2);
+    }
+
+    .follow-btn {
+        width: 50vw;
+        max-width: 200px;
+        border-radius: 0;
+        padding: 7px 12px;
+        font-size: 12px;
     }
 
     .volume-title-main {
-        font-size: 22px;
+        font-size: 16px;
     }
 
     .volume-number-display {
@@ -304,8 +476,10 @@
     }
 
     .volume-buttons {
-        flex-direction: column;
-        padding: 0 20px;
+        flex-direction: row;
+        margin-top: 16px;
+        padding: 0;
+        justify-content: flex-end;
     }
 
     .volume-slider {
@@ -316,5 +490,15 @@
         flex-direction: column;
         gap: 10px;
         padding: 0 20px;
+    }
+
+    .related-grid,
+    .book-grid.related-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 8px;
+    }
+
+    .related-section {
+        padding: 0 16px;
     }
 }

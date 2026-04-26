@@ -67,9 +67,9 @@ function displayFollowedBooks() {
 
             bookItem.addEventListener('click', () => {
                 if (book.isbn) {
-                    window.location.href = `detail.html?isbn=${book.isbn}&title=${encodeURIComponent(book.title)}`;
+                    window.location.href = `volume.html?isbn=${book.isbn}&title=${encodeURIComponent(book.title)}&series=${encodeURIComponent(extractSeriesName(book.title) || book.title)}`;
                 } else {
-                    window.location.href = `detail.html?id=${book.id}`;
+                    window.location.href = `volume.html?seriesId=${book.id}`;
                 }
             });
 

@@ -42,9 +42,39 @@ async function displayBookDetail() {
         const adapted = adaptApiResponse(data);
         allVolumes = adapted.items;
     } catch (err) {
-        console.warn('シリーズ検索失敗:', err);
-        document.getElementById('book-title').textContent = '作品が見つかりません';
-        return;
+        console.warn('API検索失敗、ローカルデータから検索:', err);
+        // ローカルJSONからフォールバック
+        try {
+            const localResp = await fetch('/data/book-all.json');
+            if (!localResp.ok) throw new Error('book-all.json not found');
+            const allBooks = await localResp.json();
+            const seriesName = extractSeriesName(title);
+            const match = allBooks.find(b =>
+                b.displayTitle === title || b.title === title ||
+                extractSeriesName(b.title) === seriesName
+            );
+            if (match) {
+                // coverCandidatesから疑似巻リストを生成
+                const candidates = match.coverCandidates || [];
+                allVolumes = candidates.map((c, i) => adaptItem({
+                    ...match,
+                    imageUrl: c.imageUrl,
+                    isbn: c.isbn,
+                    hasRealCover: c.hasRealCover,
+                    title: candidates.length > 1 ? `${match.displayTitle} ${i + 1}` : match.displayTitle,
+                }, i));
+                // 候補がなければシリーズ単体を1巻として扱う
+                if (allVolumes.length === 0) {
+                    allVolumes = [adaptItem(match, 0)];
+                }
+            }
+        } catch (localErr) {
+            console.warn('ローカルデータ検索も失敗:', localErr);
+        }
+        if (allVolumes.length === 0) {
+            document.getElementById('book-title').textContent = '作品が見つかりません';
+            return;
+        }
     }
 
     if (allVolumes.length === 0) {

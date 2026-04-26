@@ -82,7 +82,10 @@ function renderRanking(seriesList, container) {
         var coverHtml = createImageElement(item, 240);
         var titleEncoded = encodeURIComponent(s.seriesName);
 
-        html += '<div class="ranking-item" onclick="window.location.href=\'detail.html?title=' + titleEncoded + '\'">'
+        var isbnEncoded = item && item.isbn ? encodeURIComponent(item.isbn) : '';
+        var itemTitleEncoded = item ? encodeURIComponent(item.title || s.seriesName) : titleEncoded;
+        var volumeUrl = 'volume.html?isbn=' + isbnEncoded + '&title=' + itemTitleEncoded + '&series=' + titleEncoded;
+        html += '<div class="ranking-item" onclick="window.location.href=\'' + volumeUrl + '\'">'
               + '<span class="ranking-number">' + (index + 1) + '</span>'
               + '<div class="ranking-card">'
               + coverHtml

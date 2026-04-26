@@ -2,61 +2,10 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="refresh" content="0; url=home.html">
     <title>Book Store</title>
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#FFFFFF">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link rel="apple-touch-icon" href="/favicon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Crimson+Pro:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="search.css">
-    <script src="rakuten-adapter.js"></script>
-    <script src="lightning.js" defer></script>
-    <script src="search.js" defer></script>
 </head>
 <body>
-    <div class="search-page" id="searchPage">
-        <!-- 雷オンオフボタン -->
-        <button id="lightningToggle" class="lightning-toggle" aria-label="雷エフェクト切替">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3l0 7h6l-8 11v-7h-6l8 -11"/></svg>
-        </button>
-        <!-- 雷エフェクト -->
-        <canvas id="lightningCanvas" class="lightning-canvas"></canvas>
-        <!-- 中央ロゴ・検索エリア -->
-        <div class="search-center" id="searchCenter">
-            <a href="home.html" class="search-logo">
-                <img src="logo-top.png" alt="Book Store Logo">
-            </a>
-            <h1 class="search-title">Book Store</h1>
-            <form class="search-form" id="searchForm" autocomplete="off">
-                <div class="search-bar">
-                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/><path d="M21 21l-6 -6"/>
-                    </svg>
-                    <input type="text" id="searchInput" placeholder="タイトル・著者名で検索" autofocus>
-                    <button type="button" class="search-clear" id="searchClear" hidden>&times;</button>
-                </div>
-            </form>
-            <div class="search-nav">
-                <a href="home.html">Home</a>
-                <a href="new-releases.html">New Release</a>
-                <a href="follow.html">Follow</a>
-            </div>
-        </div>
-
-        <!-- 検索結果エリア -->
-        <div class="search-results" id="searchResults" hidden>
-            <div class="results-info" id="resultsInfo"></div>
-            <div class="book-grid" id="resultsGrid"></div>
-            <div class="results-loading" id="resultsLoading" hidden>
-                <div class="spinner"></div>
-            </div>
-        </div>
-    </div>
+    <script>location.replace('home.html');</script>
 </body>
 </html>

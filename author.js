@@ -158,9 +158,9 @@ function displayAuthorWorks(works) {
 
         workItem.addEventListener('click', () => {
             if (item.isbn) {
-                window.location.href = `detail.html?isbn=${item.isbn}&title=${encodeURIComponent(item.title)}`;
+                window.location.href = `volume.html?isbn=${item.isbn}&title=${encodeURIComponent(item.title)}&series=${encodeURIComponent(extractSeriesName(item.title) || item.title)}`;
             } else {
-                window.location.href = `detail.html?id=${item.id}`;
+                window.location.href = `volume.html?seriesId=${item.id}`;
             }
         });
 
