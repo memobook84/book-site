@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="follow.css">
     <script src="book-data.js"></script>
+    <script src="rakuten-adapter.js"></script>
     <script src="follow.js"></script>
 </head>
 <body>
@@ -44,6 +45,20 @@
             </button>
         </div>
     </header>
+    <script>
+    (function() {
+        function doHeaderSearch() {
+            var inp = document.querySelector('.search-box input');
+            if (!inp) return;
+            var q = inp.value.trim();
+            if (q) window.location.href = '/search.html?q=' + encodeURIComponent(q);
+        }
+        var btn = document.querySelector('.search-box button.search-icon');
+        var inp = document.querySelector('.search-box input');
+        if (btn) btn.addEventListener('click', doHeaderSearch);
+        if (inp) inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') doHeaderSearch(); });
+    })();
+    </script>
     <!-- モバイルメニュー -->
     <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
     <div class="mobile-menu-drawer" id="mobile-menu-drawer">
@@ -90,7 +105,7 @@
             <h1>Follow</h1>
         </div>
 
-        <div id="followed-book-grid" class="followed-book-grid">
+        <div id="followed-book-grid" class="followed-book-grid book-grid">
             <!-- JavaScriptで動的に生成 -->
         </div>
 
@@ -152,12 +167,12 @@
 
     <!-- 検索オーバーレイ -->
     <div class="search-overlay" id="search-overlay">
-        <div class="search-overlay-inner">
-            <input type="text" class="search-overlay-input" id="search-overlay-input" placeholder="Search novels...">
-            <button class="search-overlay-close" id="search-overlay-close">
+        <form class="search-overlay-inner" action="/search.html" method="get">
+            <input type="search" name="q" class="search-overlay-input" id="search-overlay-input" autocomplete="off" enterkeyhint="search" placeholder="Search novels...">
+            <button class="search-overlay-close" id="search-overlay-close" type="button">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
-        </div>
+        </form>
     </div>
     <script>
     (function() {
@@ -177,12 +192,10 @@
             overlay.classList.remove('open');
         });
         input.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && input.value.trim()) {
-                window.location.href = '/search.html?q=' + encodeURIComponent(input.value.trim());
-            }
             if (e.key === 'Escape') overlay.classList.remove('open');
         });
     })();
     </script>
+    <script src="header-search.js"></script>
 </body>
 </html>

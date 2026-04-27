@@ -1,17 +1,8 @@
-// フォローした作品を取得
 function getFollowedBooks() {
     const stored = localStorage.getItem('followedBooks');
     return stored ? JSON.parse(stored) : [];
 }
 
-// 1段あたりの冊数を画面幅から決定
-function getBooksPerShelf() {
-    if (window.innerWidth <= 768) return 3;
-    if (window.innerWidth <= 1200) return 4;
-    return 5;
-}
-
-// フォローした作品を表示
 function displayFollowedBooks() {
     const followedBooks = getFollowedBooks();
     const grid = document.getElementById('followed-book-grid');
@@ -26,76 +17,37 @@ function displayFollowedBooks() {
         return;
     }
 
-    grid.style.display = 'block';
+    grid.style.display = '';
     emptyMessage.style.display = 'none';
     grid.innerHTML = '';
 
-    const perShelf = getBooksPerShelf();
+    followedBooks.forEach(book => {
+        const seriesTitle = book.displayTitle || book.title || '';
+        const el = document.createElement('div');
+        el.className = 'book-item';
+        el.style.cursor = 'pointer';
 
-    // 棚段ごとにグループ化
-    for (let i = 0; i < followedBooks.length; i += perShelf) {
-        const shelfBooks = followedBooks.slice(i, i + perShelf);
+        let imageHtml;
+        if (book.imageUrl) {
+            imageHtml = `<img src="${book.imageUrl}" alt="${seriesTitle}" loading="lazy"
+                          onerror="this.style.display='none'">`;
+        } else {
+            const color = book.color || '#888';
+            imageHtml = `<div class="book-cover-placeholder" style="background:${color};aspect-ratio:2/3;display:flex;align-items:center;justify-content:center;padding:8px;">
+                <span style="color:#fff;font-size:12px;text-align:center;word-break:break-all;">${seriesTitle}</span>
+            </div>`;
+        }
 
-        const shelf = document.createElement('div');
-        shelf.className = 'glass-shelf';
+        el.innerHTML = `${imageHtml}<h3>${seriesTitle}</h3>`;
 
-        const shelfInner = document.createElement('div');
-        shelfInner.className = 'shelf-books';
-
-        shelfBooks.forEach(book => {
-            const bookItem = document.createElement('div');
-            bookItem.className = 'followed-book-item';
-
-            let imageHtml;
-            if (book.imageUrl) {
-                imageHtml = `<img src="${book.imageUrl}" alt="${book.title}"
-                              onerror="this.parentElement.innerHTML='<div class=\\'book-placeholder\\' style=\\'background-color:${book.color || '#666'};height:220px;\\'><span class=\\'book-placeholder-text\\'>${book.title}</span></div>'"
-                              loading="lazy">`;
-            } else {
-                imageHtml = `<div class="book-placeholder" style="background-color: ${book.color || '#666'}; height: 220px;">
-                    <span class="book-placeholder-text">${book.title}</span>
-                </div>`;
-            }
-
-            bookItem.innerHTML = `
-                ${imageHtml}
-                <div class="book-info">
-                    <h3>${book.title}</h3>
-                    <p class="author">${book.author}</p>
-                </div>
-            `;
-
-            bookItem.addEventListener('click', () => {
-                if (book.isbn) {
-                    window.location.href = `volume.html?isbn=${book.isbn}&title=${encodeURIComponent(book.title)}&series=${encodeURIComponent(extractSeriesName(book.title) || book.title)}`;
-                } else {
-                    window.location.href = `volume.html?seriesId=${book.id}`;
-                }
-            });
-
-            shelfInner.appendChild(bookItem);
+        el.addEventListener('click', () => {
+            const params = new URLSearchParams();
+            params.set('title', seriesTitle);
+            window.location.href = `detail.html?${params.toString()}`;
         });
 
-        shelf.appendChild(shelfInner);
-        // ガラス棚板
-        const shelfPlate = document.createElement('div');
-        shelfPlate.className = 'shelf-plate';
-        shelf.appendChild(shelfPlate);
-
-        grid.appendChild(shelf);
-    }
-}
-
-// フォローを解除
-function unfollowBook(bookId, isbn) {
-    let followedBooks = getFollowedBooks();
-    followedBooks = followedBooks.filter(m => {
-        if (isbn && m.isbn) return m.isbn !== isbn;
-        return m.id !== bookId;
+        grid.appendChild(el);
     });
-    localStorage.setItem('followedBooks', JSON.stringify(followedBooks));
-    displayFollowedBooks();
 }
 
-// ページ読み込み時に実行
 window.addEventListener('DOMContentLoaded', displayFollowedBooks);

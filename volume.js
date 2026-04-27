@@ -190,7 +190,8 @@ async function setupSeriesData(seriesName, currentIsbn, currentTitle) {
     if (currentIsbn) currentIndex = withVolNum.findIndex(v => v.isbn === currentIsbn);
     if (currentIndex === -1 && currentTitle) currentIndex = withVolNum.findIndex(v => v.title === currentTitle);
 
-    if (withVolNum.length > 1 && currentIndex !== -1) {
+    const hasSequentialNums = withVolNum.some(v => v.volNum !== null);
+    if (withVolNum.length > 1 && currentIndex !== -1 && hasSequentialNums) {
         const slider = document.getElementById('volume-slider');
         slider.style.display = 'flex';
 

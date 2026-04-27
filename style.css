@@ -13,7 +13,7 @@
 
 /* === CSS Variables === */
 :root {
-    --color-header: #FFFFFF;
+    --color-header: #6B21A8;
     --color-bg: #FFFFFF;
     --color-card: #FFFFFF;
     --color-text: #2B2B2B;
@@ -44,9 +44,9 @@ body {
 /* ヘッダー */
 header {
     background-color: var(--color-header);
-    padding: 7px 0;
+    padding: 16px 0;
     box-shadow: none;
-    border-bottom: 1px solid #e8e8e8;
+    border-bottom: 1px solid #4c1681;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -82,7 +82,7 @@ header {
 }
 
 header h1 {
-    color: #3450A2;
+    color: #fff;
     font-size: 22px;
     font-weight: 700;
     margin-right: auto;
@@ -93,7 +93,7 @@ header h1 {
 }
 
 header h1 a {
-    color: #3450A2;
+    color: #fff;
     text-decoration: none;
 }
 
@@ -106,7 +106,7 @@ header h1 a {
 .nav-link {
     display: inline-flex;
     align-items: center;
-    color: #555;
+    color: rgba(255,255,255,0.88);
     text-decoration: none;
     padding: 8px 16px;
     border: none;
@@ -126,59 +126,133 @@ header h1 a {
 }
 
 .nav-link:hover {
-    color: #2B2B2B;
+    color: #fff;
     background: transparent;
-    border-bottom-color: #2B2B2B;
+    border-bottom-color: #fff;
 }
 
 .nav-link.active {
-    color: #1a7a6e;
-    border-bottom-color: #1a7a6e;
+    color: #fff;
+    border-bottom-color: #fff;
     font-weight: 700;
 }
 
-/* 検索ボックス */
+/* 検索ボックス — デスクトップはアイコンのみ */
 .search-box {
-    position: relative;
     display: flex;
     align-items: center;
 }
 
 .search-box input {
-    padding: 7px 45px 7px 20px;
-    width: 300px;
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    font-size: 15px;
-    font-family: 'Inter-Alpha', 'Noto Sans JP', sans-serif;
-    background-color: var(--color-card);
-    transition: border-color 0.3s;
-}
-
-.search-box input:focus {
-    outline: none;
-    border-color: var(--color-text);
+    display: none;
 }
 
 .search-box .search-icon {
-    position: absolute;
-    right: 10px;
+    position: static;
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 5px;
+    padding: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.3s;
-}
-
-.search-box .search-icon:hover {
-    opacity: 0.7;
+    color: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    transition: background 0.2s, color 0.2s;
 }
 
 .search-box .search-icon svg {
-    stroke: var(--color-text-sub);
+    stroke: currentColor;
+    width: 22px;
+    height: 22px;
+}
+
+.search-box .search-icon:hover {
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+}
+
+@media (max-width: 1024px) {
+    .search-box {
+        display: none;
+    }
+}
+
+/* ヘッダー検索ポップアップ */
+#header-search-popup {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    width: 600px;
+    max-width: calc(100vw - 40px);
+    z-index: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#header-search-popup.open {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(-50%) translateY(0);
+}
+
+.hsp-bar {
+    display: flex;
+    align-items: center;
+    background: #6B21A8;
+    border-radius: 50px;
+    padding: 5px 5px 5px 5px;
+    box-shadow: 0 6px 28px rgba(107, 33, 168, 0.4), 0 2px 10px rgba(0,0,0,0.15);
+    gap: 0;
+}
+
+.hsp-input-wrap {
+    flex: 1;
+    background: #f0efee;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 22px;
+}
+
+.hsp-bar input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #444;
+    padding: 14px 0;
+    font-family: var(--font-body);
+    caret-color: #6B21A8;
+}
+
+.hsp-bar input::placeholder {
+    color: #aaa;
+}
+
+.hsp-submit {
+    width: 52px;
+    height: 52px;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-left: 4px;
+    transition: background 0.15s;
+}
+
+.hsp-submit:hover {
+    background: rgba(255,255,255,0.18);
+}
+
+.hsp-submit svg {
+    stroke: #fff;
 }
 
 /* メインレイアウト（サイドバー + コンテンツ） */
@@ -196,8 +270,8 @@ header h1 a {
     top: 80px;
     left: 20px;
     z-index: 90;
-    background: #fff;
-    border: 1px solid #e8e8e8;
+    background: var(--color-header);
+    border: none;
     border-radius: 6px;
     width: 28px;
     height: 28px;
@@ -205,16 +279,17 @@ header h1 a {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
     transition: background 0.2s;
 }
 
 .sidebar-toggle:hover {
-    background: #f5f5f5;
+    opacity: 0.85;
 }
 
 .sidebar-toggle svg {
     transition: transform 0.3s ease;
+    stroke: #fff;
 }
 
 .sidebar-toggle.collapsed svg {
@@ -670,7 +745,7 @@ main {
     line-height: 1;
     font-family: 'Bebas Neue', sans-serif;
     user-select: none;
-    background: rgba(0, 0, 0, 0.55);
+    background: var(--color-header);
     padding: 4px 8px;
     border-radius: 4px 0 6px 0;
     z-index: 1;
@@ -813,7 +888,7 @@ main {
         left: 0;
         right: 0;
         background: var(--color-header);
-        border-top: 1px solid var(--color-border);
+        border-top: 1px solid #4c1681;
         z-index: 200;
         padding: 6px 0;
         padding-bottom: max(6px, env(safe-area-inset-bottom));
@@ -827,7 +902,7 @@ main {
         align-items: center;
         gap: 2px;
         text-decoration: none;
-        color: var(--color-text-sub);
+        color: rgba(255,255,255,0.75);
         font-size: 10px;
         font-family: var(--font-body);
         padding: 4px 12px;
@@ -846,7 +921,7 @@ main {
     }
 
     .bottom-nav-item.active {
-        color: var(--color-text);
+        color: #fff;
     }
 
     .bottom-nav-item.active svg {

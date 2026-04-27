@@ -7,7 +7,6 @@
     const searchResults = document.getElementById('searchResults');
     const resultsGrid = document.getElementById('resultsGrid');
     const resultsInfo = document.getElementById('resultsInfo');
-    const resultsLoading = document.getElementById('resultsLoading');
 
     let currentQuery = '';
 
@@ -59,12 +58,14 @@
         // UI状態を「結果あり」に
         searchPage.classList.add('has-results');
         searchResults.hidden = false;
-        resultsLoading.hidden = false;
         resultsGrid.innerHTML = '';
         resultsInfo.textContent = `「${query}」を検索中...`;
 
         try {
-            const resp = await fetch(`/api/search?keyword=${encodeURIComponent(query)}&hits=30`);
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 15000);
+            const resp = await fetch(`/api/search?keyword=${encodeURIComponent(query)}&hits=30`, { signal: controller.signal });
+            clearTimeout(timeoutId);
             if (!resp.ok) throw new Error('API error');
             const data = await resp.json();
 
@@ -73,8 +74,6 @@
 
             const adapted = adaptApiResponse(data);
             const series = groupBySeries(adapted.items);
-
-            resultsLoading.hidden = true;
 
             if (series.length === 0) {
                 resultsInfo.textContent = `「${query}」の検索結果はありません`;
@@ -89,7 +88,6 @@
             upgradeCovers();
         } catch (err) {
             if (query !== currentQuery) return;
-            resultsLoading.hidden = true;
             resultsInfo.textContent = `検索中にエラーが発生しました`;
             resultsGrid.innerHTML = '<p style="text-align:center;color:var(--color-text-sub);padding:40px 0;">しばらくしてからもう一度お試しください。</p>';
         }

@@ -29,6 +29,7 @@ function rakutenFetch(url) {
       });
     });
     req.on('error', reject);
+    req.setTimeout(12000, () => { req.destroy(new Error('Request timeout')); });
     req.end();
   });
 }

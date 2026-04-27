@@ -42,6 +42,20 @@
             </div>
         </div>
     </header>
+    <script>
+    (function() {
+        function doHeaderSearch() {
+            var inp = document.querySelector('.search-box input');
+            if (!inp) return;
+            var q = inp.value.trim();
+            if (q) window.location.href = '/search.html?q=' + encodeURIComponent(q);
+        }
+        var btn = document.querySelector('.search-box button.search-icon');
+        var inp = document.querySelector('.search-box input');
+        if (btn) btn.addEventListener('click', doHeaderSearch);
+        if (inp) inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') doHeaderSearch(); });
+    })();
+    </script>
 
     <!-- 詳細ページコンテンツ -->
     <main class="detail-main">
@@ -117,7 +131,43 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"/></svg>
             <span>Follow</span>
         </a>
+        <button class="bottom-nav-item bottom-nav-search-btn" id="bottom-search-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+            <span>Search</span>
+        </button>
     </nav>
+
+    <!-- 検索オーバーレイ -->
+    <div class="search-overlay" id="search-overlay">
+        <form class="search-overlay-inner" action="/search.html" method="get">
+            <input type="search" name="q" class="search-overlay-input" id="search-overlay-input" autocomplete="off" enterkeyhint="search" placeholder="Search novels...">
+            <button class="search-overlay-close" id="search-overlay-close" type="button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </form>
+    </div>
+    <script>
+    (function() {
+        var searchBtn = document.getElementById('bottom-search-btn');
+        var overlay = document.getElementById('search-overlay');
+        var input = document.getElementById('search-overlay-input');
+        if (!searchBtn || !overlay) return;
+        searchBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            overlay.classList.add('open');
+            setTimeout(function() { input.focus(); }, 100);
+        });
+        overlay.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+        document.addEventListener('click', function() {
+            overlay.classList.remove('open');
+        });
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') overlay.classList.remove('open');
+        });
+    })();
+    </script>
 
     <script>
     (function() {
@@ -139,5 +189,6 @@
         navigator.serviceWorker.register('/sw.js');
     }
     </script>
+    <script src="header-search.js"></script>
 </body>
 </html>

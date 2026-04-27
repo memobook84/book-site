@@ -1,0 +1,281 @@
+.detail-main {
+    max-width: 1400px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.detail-container {
+    display: flex;
+    gap: 40px;
+    padding: 30px;
+}
+
+.detail-image {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.detail-image img,
+.detail-image .book-detail-placeholder {
+    width: 300px;
+    height: 420px;
+    border-radius: 2px 6px 6px 2px;
+    display: block;
+    object-fit: contain;
+    box-shadow: 6px 6px 20px rgba(0,0,0,0.25), 12px 12px 40px rgba(0,0,0,0.15);
+}
+
+.follow-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 14px 24px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    letter-spacing: 0.05em;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    margin-top: 16px;
+}
+
+.follow-button:hover {
+    background: #f5f5f5;
+}
+
+.follow-button.followed {
+    background: #3450A2;
+    color: #fff;
+    border-color: #3450A2;
+}
+
+.follow-button .follow-cross {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+.follow-button .cross-h,
+.follow-button .cross-v {
+    position: absolute;
+    background: currentColor;
+    border-radius: 1px;
+}
+
+.follow-button .cross-h {
+    width: 14px;
+    height: 2px;
+    top: 6px;
+    left: 0;
+}
+
+.follow-button .cross-v {
+    width: 2px;
+    height: 14px;
+    top: 0;
+    left: 6px;
+    transition: transform 0.2s;
+}
+
+.follow-button.followed .cross-v {
+    transform: rotate(45deg);
+}
+
+.detail-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-title {
+    font-size: 26px;
+    color: var(--color-text);
+    margin-bottom: 12px;
+    line-height: 1.4;
+    font-family: var(--font-heading);
+    font-weight: 400;
+}
+
+.detail-author {
+    color: #6cb4ee;
+    text-decoration: none;
+    font-size: 15px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.detail-author:hover {
+    text-decoration: underline;
+}
+
+.detail-meta {
+    margin-bottom: 24px;
+}
+
+.meta-item {
+    padding: 8px 0 8px 20px;
+    border-left: 2px solid var(--color-border);
+    margin-bottom: 4px;
+}
+
+.meta-label {
+    font-size: 13px;
+    color: var(--color-text-sub);
+    margin-right: 8px;
+}
+
+.meta-value {
+    font-size: 15px;
+    color: var(--color-text);
+}
+
+.detail-description {
+    margin: 0 30px 32px;
+}
+
+.detail-description h2 {
+    font-size: 20px;
+    color: var(--color-text);
+    margin-bottom: 15px;
+    border-left: 1px solid var(--color-border);
+    padding-left: 12px;
+    font-family: var(--font-heading);
+    font-weight: 600;
+}
+
+.detail-description p {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--color-text);
+}
+
+/* シリーズ一覧 */
+.volumes-section {
+    padding: 0 30px 40px;
+    border-top: 1px solid var(--color-border);
+    padding-top: 40px;
+    margin-top: 8px;
+}
+
+.volumes-title {
+    font-size: 20px;
+    color: var(--color-text);
+    margin-bottom: 20px;
+    border-left: 1px solid var(--color-border);
+    padding-left: 12px;
+    font-family: var(--font-heading);
+    font-weight: 600;
+}
+
+.volumes-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 30px 24px;
+}
+
+.volume-item {
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 0;
+    text-align: center;
+    perspective: 800px;
+}
+
+.volume-item img,
+.volume-item .book-cover-placeholder {
+    width: 80%;
+    margin: 0 auto;
+    aspect-ratio: 2 / 3;
+    display: block;
+    object-fit: cover;
+    border-radius: 2px 6px 6px 2px;
+    box-shadow: 3px 6px 16px rgba(0,0,0,0.18);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.volume-item:hover img,
+.volume-item:hover .book-cover-placeholder {
+    transform: rotateY(-6deg) scale(1.007);
+    box-shadow: 6px 12px 28px rgba(0,0,0,0.25);
+}
+
+.volume-info {
+    padding: 6px 4px 2px;
+}
+
+.volume-info .volume-number {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text);
+    margin-bottom: 2px;
+}
+
+.volume-info .volume-date {
+    font-size: 11px;
+    color: var(--color-text-sub);
+}
+
+@media (max-width: 1200px) {
+    .volumes-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .volumes-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .detail-container {
+        flex-direction: column;
+        padding: 20px;
+        align-items: center;
+    }
+
+    .detail-image {
+        width: 50vw;
+        max-width: 200px;
+    }
+
+    .detail-image img,
+    .detail-image .book-detail-placeholder {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 2 / 3;
+    }
+
+    .detail-description {
+        padding: 0 20px;
+    }
+
+    .volumes-section {
+        padding: 32px 16px 40px;
+    }
+
+    .volumes-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+
+    .volume-item img,
+    .volume-item .book-cover-placeholder {
+        width: 100%;
+        margin: 0;
+    }
+
+    .volume-item:hover img,
+    .volume-item:hover .book-cover-placeholder {
+        transform: none;
+    }
+}

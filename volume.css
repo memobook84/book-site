@@ -91,6 +91,7 @@
     gap: 15px;
     margin-bottom: 24px;
     padding-bottom: 16px;
+    padding-left: 20px;
     border-bottom: 1px solid var(--color-border);
 }
 
@@ -263,7 +264,7 @@
     font-weight: 700;
     text-decoration: none;
     color: #111;
-    background: #f5f5f5;
+    background: #fff;
     border: 1px solid #ccc;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -271,24 +272,24 @@
 }
 
 .buy-button:hover {
-    background: #e8e8e8;
+    background: #f0f0f0;
 }
 
 .rakuten-button {
-    background: #f5f5f5;
+    background: #fff;
 }
 
 .rakuten-button:hover {
-    background: #e8e8e8;
+    background: #f0f0f0;
 }
 
 .amazon-button {
-    background: #f5f5f5;
+    background: #fff;
     color: #111;
 }
 
 .amazon-button:hover {
-    background: #e8e8e8;
+    background: #f0f0f0;
     color: #111;
 }
 
@@ -423,9 +424,88 @@
     font-weight: 600;
 }
 
+/* シリーズ一覧グリッド */
+.volumes-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 30px 24px;
+}
+
+.volume-item {
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 0;
+    text-align: center;
+    perspective: 800px;
+}
+
+.volume-item img,
+.volume-item .book-cover-placeholder {
+    width: 80%;
+    margin: 0 auto;
+    aspect-ratio: 2 / 3;
+    display: block;
+    object-fit: cover;
+    border-radius: 2px 6px 6px 2px;
+    box-shadow: 3px 6px 16px rgba(0,0,0,0.18);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.volume-item:hover img,
+.volume-item:hover .book-cover-placeholder {
+    transform: rotateY(-6deg) scale(1.007);
+    box-shadow: 6px 12px 28px rgba(0,0,0,0.25);
+}
+
+.volume-info {
+    padding: 6px 4px 2px;
+}
+
+.volume-info .volume-number {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text);
+    margin-bottom: 2px;
+}
+
+.volume-info .volume-date {
+    font-size: 11px;
+    color: var(--color-text-sub);
+}
+
 .volume-item--active {
     opacity: 0.5;
     pointer-events: none;
+}
+
+@media (max-width: 1200px) {
+    .volumes-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .volumes-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .volumes-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+
+    .volume-item img,
+    .volume-item .book-cover-placeholder {
+        width: 100%;
+        margin: 0;
+    }
+
+    .volume-item:hover img,
+    .volume-item:hover .book-cover-placeholder {
+        transform: none;
+    }
 }
 
 /* レスポンシブデザイン */

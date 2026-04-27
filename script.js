@@ -429,33 +429,6 @@ function updatePagination() {
     container.appendChild(nextBtn);
 }
 
-// 検索機能
-function setupSearch() {
-    const searchInput = document.querySelector('.search-box input');
-    const searchButton = document.querySelector('.search-box button');
-
-    searchButton.addEventListener('click', performSearch);
-    searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            performSearch();
-        }
-    });
-}
-
-function performSearch() {
-    const searchInput = document.querySelector('.search-box input');
-    const keyword = searchInput.value.trim();
-    currentKeyword = keyword;
-    currentPage = 1;
-
-    if (!keyword) {
-        fetchFromApi(1);
-        return;
-    }
-
-    fetchFromApi(1, keyword);
-}
-
 // サイドバーのフィルタ機能
 function setupSidebar() {
     const sidebarLinks = document.querySelectorAll('.sidebar-link[data-filter]');
@@ -487,7 +460,6 @@ function setupSidebar() {
 
 // ページ読み込み時に実行
 window.addEventListener('DOMContentLoaded', () => {
-    setupSearch();
     setupSidebar();
     fetchFromApi(1);
 });

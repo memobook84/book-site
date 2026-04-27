@@ -1,110 +1,13 @@
-/* フォローページ専用のスタイル */
+/* フォローページ */
 
 .follow-main {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 40px auto;
-    padding: 0 20px;
+    padding: 0 20px 80px;
 }
 
-
-/* ガラスケース全体 */
 .followed-book-grid {
-    background: linear-gradient(180deg, rgba(240,238,235,0.5) 0%, rgba(230,227,222,0.3) 100%);
-    border: 1px solid rgba(0,0,0,0.06);
-    border-radius: 12px;
-    padding: 0 24px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8);
-}
-
-/* 棚段 */
-.glass-shelf {
-    position: relative;
-}
-
-.glass-shelf:last-child .shelf-plate {
-    display: none;
-}
-
-/* 棚の中の本グリッド */
-.shelf-books {
-    display: flex;
-    gap: 24px;
-    padding: 32px 0 20px 0;
-    align-items: flex-end;
-}
-
-/* ガラス棚板 */
-.shelf-plate {
-    height: 2px;
-    background: linear-gradient(to right,
-        transparent 0%,
-        rgba(0,0,0,0.06) 10%,
-        rgba(0,0,0,0.08) 50%,
-        rgba(0,0,0,0.06) 90%,
-        transparent 100%
-    );
-    position: relative;
-}
-
-.shelf-plate::after {
-    content: '';
-    position: absolute;
-    left: 5%;
-    right: 5%;
-    top: 2px;
-    height: 8px;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.04), transparent);
-    pointer-events: none;
-}
-
-/* 本アイテム */
-.followed-book-item {
-    flex: 1;
-    min-width: 0;
-    cursor: pointer;
-    transition: transform 0.3s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.followed-book-item:hover {
-    transform: translateY(-6px);
-}
-
-.followed-book-item img {
-    width: 100%;
-    height: 240px;
-    object-fit: contain;
-    object-position: bottom;
-    display: block;
-    border-radius: 3px;
-    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.18));
-}
-
-.followed-book-item .book-info {
-    padding: 6px 4px 0 4px;
-    text-align: center;
-}
-
-.followed-book-item h3 {
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--color-text);
-    margin-bottom: 0;
-    font-family: var(--font-heading);
-    line-height: 1.4;
-}
-
-.followed-book-item .author {
-    font-size: 11px;
-    color: var(--color-text-sub);
-    margin: 0;
-}
-
-/* アンフォローボタン（非表示） */
-.unfollow-button {
-    display: none;
+    /* 枠なし - book-grid のスタイルを使用 */
 }
 
 /* 空のメッセージ */
@@ -123,6 +26,7 @@
     color: var(--color-text-sub);
     margin-bottom: 10px;
     font-family: var(--font-heading);
+    font-weight: 400;
 }
 
 .empty-message p {
@@ -137,48 +41,12 @@
     background-color: var(--color-text);
     color: white;
     text-decoration: none;
-    border-radius: 6px;
+    font-size: 14px;
     font-weight: 600;
-    transition: background-color 0.3s;
+    letter-spacing: 0.06em;
+    transition: opacity 0.2s;
 }
 
 .browse-button:hover {
-    background-color: #2a4e40;
-}
-
-/* レスポンシブデザイン */
-@media (max-width: 1200px) {
-    .shelf-books {
-        gap: 20px;
-    }
-}
-
-@media (max-width: 768px) {
-    .followed-book-grid {
-        padding: 0 12px;
-        border-radius: 8px;
-    }
-
-    .shelf-books {
-        gap: 10px;
-        padding: 20px 0 14px 0;
-    }
-
-    .followed-book-item img {
-        height: auto;
-        object-fit: cover;
-        object-position: center;
-    }
-
-    .followed-book-item h3 {
-        font-size: 10px;
-    }
-
-    .followed-book-item .author {
-        font-size: 9px;
-    }
-
-    .follow-header h1 {
-        font-size: 24px;
-    }
+    opacity: 0.75;
 }
