@@ -46,7 +46,7 @@
 .col-status { display: flex; align-items: center; }
 .col-title {
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 400;
     color: var(--color-text);
     font-family: var(--font-heading);
     padding-right: 16px;

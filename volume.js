@@ -110,7 +110,12 @@ async function displayVolumeDetail() {
     document.getElementById('volume-publisher').textContent = volume.publisher || '-';
     document.getElementById('volume-label').textContent = volume.label || volume.seriesName || '-';
     document.getElementById('volume-date').textContent = volume.firstReleaseDate || '-';
-    document.getElementById('volume-price').textContent = volume.price || '-';
+    const priceEl = document.getElementById('volume-price');
+    if (volume.price) {
+        priceEl.innerHTML = `<span class="price-yen">¥</span>${volume.price}`;
+    } else {
+        priceEl.textContent = '-';
+    }
     document.getElementById('volume-isbn').textContent = volume.isbn || '-';
     document.getElementById('volume-pagecount').textContent = volume.pageCount ? `${volume.pageCount}ページ` : '-';
     document.getElementById('volume-synopsis').textContent = volume.description || 'この巻の情報はありません。';
@@ -320,7 +325,7 @@ function buildLocalVolume(manga, volumeNum) {
         firstReleaseDate: `${year}年${month}月`,
         description: `${manga.title}の第${volumeNum}巻。`,
         imageUrl: '',
-        price: `¥${basePrice + variation}（税込）`,
+        price: `${basePrice + variation}（税込）`,
         priceRaw: basePrice + variation,
         isbn: '',
         itemUrl: '',

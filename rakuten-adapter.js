@@ -33,7 +33,7 @@ function adaptItem(item, index) {
     description: item.description || '',
     imageUrl: item.imageUrl || '',
     hasRealCover: item.hasRealCover !== false,
-    price: item.price ? `¥${Number(item.price).toLocaleString()}（税込）` : '',
+    price: item.price ? `${Number(item.price).toLocaleString()}（税込）` : '',
     priceRaw: item.price || 0,
     isbn: item.isbn || '',
     itemUrl: item.itemUrl || '',
@@ -150,19 +150,22 @@ function createDetailImageElement(item) {
   const isbn = item.isbn || '';
   const dataIsbn = isbn ? `data-isbn="${isbn}"` : '';
   const needsUpgrade = (!item.hasRealCover && isbn) ? 'data-needs-upgrade="1"' : '';
-  const imgStyle = "width:300px;height:420px;object-fit:contain;border-radius:6px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.2));";
+  function upgradeImageUrl(url) {
+    if (!url) return url;
+    url = url.replace('http://', 'https://');
+    return url.includes('?_ex=') ? url.replace(/\?_ex=\d+x\d+/, '?_ex=800x800') : url + '?_ex=800x800';
+  }
 
   if (item.imageUrl) {
-    return `<img src="${item.imageUrl}" alt="${item.title}"
+    const highResUrl = upgradeImageUrl(item.imageUrl);
+    return `<img src="${highResUrl}" alt="${item.title}"
               ${dataIsbn} ${needsUpgrade}
-              style="${imgStyle}"
               onerror="handleDetailImageError(this,'${safeTitle}','${item.color}')"
               loading="lazy">`;
   }
   if (isbn) {
     return `<img src="" alt="${item.title}"
               ${dataIsbn} data-needs-upgrade="1"
-              style="${imgStyle}"
               onerror="handleDetailImageError(this,'${safeTitle}','${item.color}')"
               loading="lazy">`;
   }
