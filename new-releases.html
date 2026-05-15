@@ -6,7 +6,7 @@
     <title>新刊 - NODEBOOK</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#FFFFFF">
+    <meta name="theme-color" content="#930000">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -20,6 +20,8 @@
     <script src="new-releases.js"></script>
 </head>
 <body>
+    <div id="splash-screen"><img src="/logo-top.png" alt="NODEBOOK"></div>
+    <script>(function(){var s=document.getElementById('splash-screen');var isStandalone=window.navigator.standalone||window.matchMedia('(display-mode: standalone)').matches;if(!isStandalone){s.style.display='none';return;}setTimeout(function(){s.classList.add('hidden');setTimeout(function(){s.remove();},400);},1000);})();</script>
     <!-- ヘッダー -->
     <header>
         <div class="header-container">

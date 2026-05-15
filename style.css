@@ -42,10 +42,38 @@
     box-sizing: border-box;
 }
 
+html {
+    background-color: var(--color-header);
+}
+
+/* スプラッシュ画面 */
+#splash-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--color-header);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.4s ease;
+}
+
+#splash-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#splash-screen img {
+    width: 140px;
+    height: auto;
+    filter: brightness(0) invert(1);
+}
+
 body {
     font-family: var(--font-body);
     background-color: var(--color-bg);
     color: var(--color-text);
+    min-height: 100vh;
 }
 
 /* ヘッダー */
@@ -65,7 +93,7 @@ header.header-hidden {
 }
 
 .header-container {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
@@ -76,6 +104,13 @@ header.header-hidden {
 
 .header-logo {
     display: none;
+}
+
+@media (max-width: 768px) {
+    .header-logo {
+        display: flex;
+        align-items: center;
+    }
 }
 
 /* ヘッダーロゴ（位置調整は.header-container直後で定義） */
@@ -212,17 +247,17 @@ header h1 a {
 .hsp-bar {
     display: flex;
     align-items: center;
-    background: #6B21A8;
-    border-radius: 50px;
-    padding: 5px 5px 5px 5px;
-    box-shadow: 0 6px 28px rgba(107, 33, 168, 0.4), 0 2px 10px rgba(0,0,0,0.15);
+    background: var(--color-header);
+    border-radius: 4px;
+    padding: 5px;
+    box-shadow: 0 6px 28px rgba(147, 0, 0, 0.4), 0 2px 10px rgba(0,0,0,0.15);
     gap: 0;
 }
 
 .hsp-input-wrap {
     flex: 1;
-    background: #f0efee;
-    border-radius: 40px;
+    background: #f5f5f5;
+    border-radius: 2px;
     display: flex;
     align-items: center;
     padding: 0 22px;
@@ -234,10 +269,10 @@ header h1 a {
     border: none;
     outline: none;
     font-size: 16px;
-    color: #444;
+    color: #333;
     padding: 14px 0;
     font-family: var(--font-body);
-    caret-color: #6B21A8;
+    caret-color: var(--color-header);
 }
 
 .hsp-bar input::placeholder {
@@ -269,7 +304,7 @@ header h1 a {
 
 /* メインレイアウト（サイドバー + コンテンツ） */
 .main-layout {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 32px 20px;
     display: flex;
@@ -580,11 +615,12 @@ main {
 @media (max-width: 768px) {
     .book-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
+        gap: 14px 12px;
+        padding: 0 4px;
     }
 
     .book-item img {
-        width: 94%;
+        width: 78%;
         margin: 0 auto;
         height: auto;
         object-fit: cover;
@@ -646,6 +682,11 @@ main {
 
     header h1 {
         display: none;
+    }
+
+    .header-logo {
+        display: flex;
+        align-items: center;
     }
 
     .header-nav {
@@ -924,14 +965,14 @@ main {
     .bottom-nav {
         display: flex;
         position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        bottom: 20px;
+        left: 24px;
+        right: 24px;
         background: #fff;
-        border-top: 1px solid #e5e5e5;
+        border-radius: 28px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.13), 0 1px 6px rgba(0,0,0,0.07);
         z-index: 200;
-        padding: 6px 0;
-        padding-bottom: max(6px, env(safe-area-inset-bottom));
+        padding: 10px 8px;
         justify-content: space-around;
         align-items: center;
     }
@@ -940,15 +981,18 @@ main {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 2px;
+        gap: 5px;
         text-decoration: none;
-        color: rgba(0,0,0,0.45);
+        color: rgba(0,0,0,0.35);
         font-size: 0;
         font-family: var(--font-body);
-        padding: 4px 12px;
+        padding: 6px 16px;
         border-radius: 0;
         border: none;
         outline: none;
+        background: none;
+        cursor: pointer;
+        position: relative;
         transition: color 0.2s;
         -webkit-tap-highlight-color: transparent;
         -webkit-appearance: none;
@@ -956,21 +1000,34 @@ main {
     }
 
     .bottom-nav-item svg {
-        opacity: 0.5;
-        transition: opacity 0.2s;
+        transition: stroke 0.2s, opacity 0.2s;
+        opacity: 0.45;
     }
 
     .bottom-nav-item.active {
-        color: var(--color-header);
+        color: #111;
     }
 
     .bottom-nav-item.active svg {
         opacity: 1;
+        stroke: #111;
+    }
+
+    .bottom-nav-item.active::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 22px;
+        height: 3px;
+        background: #111;
+        border-radius: 2px;
     }
 
     /* ボトムナビ分の余白 */
     body {
-        padding-bottom: 64px;
+        padding-bottom: 90px;
     }
 
     /* ヘッダーのナビリンクを非表示（ボトムナビに移動） */

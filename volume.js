@@ -121,8 +121,10 @@ async function displayVolumeDetail() {
     document.getElementById('volume-synopsis').textContent = volume.description || 'この巻の情報はありません。';
 
     // 購入ボタンのリンクを設定
-    document.getElementById('buy-rakuten').href = getRakutenBuyUrl(volume);
-    document.getElementById('buy-amazon').href = getAmazonBuyUrl(volume);
+    const rakutenUrl = getRakutenBuyUrl(volume);
+    document.getElementById('buy-rakuten').href = rakutenUrl;
+    const desktopBtn = document.getElementById('buy-rakuten-desktop');
+    if (desktopBtn) desktopBtn.href = rakutenUrl;
 
     const seriesName = series || extractSeriesName(volume.title) || volume.title;
     setupFollowBtn(seriesName);
@@ -405,25 +407,25 @@ async function loadRelatedBooks(volume) {
 
 // フォローボタン
 function setupFollowBtn(seriesTitle) {
-    const btn = document.getElementById('follow-btn');
-    if (!btn || !seriesTitle) return;
+    const btns = [document.getElementById('follow-btn'), document.getElementById('follow-btn-desktop')].filter(Boolean);
+    if (!btns.length || !seriesTitle) return;
     const followed = JSON.parse(localStorage.getItem('followedBooks') || '[]');
     const isFollowed = followed.some(b => b.title === seriesTitle || b.displayTitle === seriesTitle);
-    const label = btn.querySelector('.follow-label');
-    if (isFollowed) { btn.classList.add('followed'); if (label) label.textContent = 'Following'; }
-    btn.addEventListener('click', function() {
-        const list = JSON.parse(localStorage.getItem('followedBooks') || '[]');
-        const idx = list.findIndex(b => b.title === seriesTitle || b.displayTitle === seriesTitle);
-        if (idx >= 0) {
-            list.splice(idx, 1);
-            btn.classList.remove('followed');
-            if (label) label.textContent = 'Follow';
-        } else {
-            list.push({ title: seriesTitle, displayTitle: seriesTitle });
-            btn.classList.add('followed');
-            if (label) label.textContent = 'Following';
-        }
-        localStorage.setItem('followedBooks', JSON.stringify(list));
+    btns.forEach(btn => {
+        const label = btn.querySelector('.follow-label');
+        if (isFollowed) { btn.classList.add('followed'); if (label) label.textContent = 'Following'; }
+        btn.addEventListener('click', function() {
+            const list = JSON.parse(localStorage.getItem('followedBooks') || '[]');
+            const idx = list.findIndex(b => b.title === seriesTitle || b.displayTitle === seriesTitle);
+            if (idx >= 0) {
+                list.splice(idx, 1);
+                btns.forEach(b => { b.classList.remove('followed'); const l = b.querySelector('.follow-label'); if (l) l.textContent = 'Follow'; });
+            } else {
+                list.push({ title: seriesTitle, displayTitle: seriesTitle });
+                btns.forEach(b => { b.classList.add('followed'); const l = b.querySelector('.follow-label'); if (l) l.textContent = 'Following'; });
+            }
+            localStorage.setItem('followedBooks', JSON.stringify(list));
+        });
     });
 }
 

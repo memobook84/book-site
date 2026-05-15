@@ -170,9 +170,9 @@
         grid-column: 1;
         grid-row: 1;
         font-size: 14px;
-        white-space: normal;
-        overflow: visible;
-        text-overflow: unset;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         padding-right: 8px;
     }
 
