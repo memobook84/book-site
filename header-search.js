@@ -1,4 +1,12 @@
 (function () {
+    // ヘッダーfixed化によるbody padding調整
+    function adjustBodyPadding() {
+        var h = document.querySelector('header');
+        if (h) document.body.style.paddingTop = h.offsetHeight + 'px';
+    }
+    adjustBodyPadding();
+    window.addEventListener('resize', adjustBodyPadding);
+
     // 現在ページのナビリンクにactiveクラスを付与
     var path = location.pathname.replace(/\/$/, '') || '/home.html';
     document.querySelectorAll('.nav-link').forEach(function (a) {

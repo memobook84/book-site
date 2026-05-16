@@ -1,12 +1,13 @@
 (async function () {
     const container = document.getElementById('scatter-container');
     const BOOK_COUNT = 60;
-    const CACHE_KEY = 'scatter-layout';
+    const CACHE_KEY = 'scatter-layout-v2';
 
-    const vw = Math.min(Math.max(window.innerWidth, 1200), 1400);
+    const vw = Math.min(window.innerWidth, 1200);
     const cols = 10;
     const rows = Math.ceil(BOOK_COUNT / cols);
-    const cellW = vw / cols;
+    const maxBookW = 140;
+    const cellW = (vw - maxBookW) / cols;
     const cellH = 180;
     const totalH = rows * cellH + 200;
     container.style.height = totalH + 'px';
@@ -46,7 +47,7 @@
             const h = Math.round(w * 1.45);
             const col = i % cols;
             const row = Math.floor(i / cols);
-            const baseX = col * cellW - cellW * 0.1;
+            const baseX = col * cellW;
             const baseY = row * cellH + 40;
             const x = Math.round(baseX + rand(0, cellW * 0.9));
             const y = Math.round(baseY + rand(0, cellH * 0.7));

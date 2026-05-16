@@ -153,62 +153,65 @@
 
 /* 著者名ライン */
 .volume-author-line {
-    display: block;
-    font-size: 15px;
     color: #6cb4ee;
     text-decoration: none;
-    margin-top: 4px;
-    margin-bottom: 28px;
-    font-weight: 400;
     transition: color 0.2s;
 }
 
 .volume-author-line:hover {
     color: #4a9de0;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 /* パラメーターセクション */
 .volume-meta-section {
-    padding: 24px 0;
-    margin: 0 0 32px;
+    padding: 16px 0;
+    margin: 20px 0 24px;
 }
 
 .volume-meta-title {
-    font-size: 17px;
-    font-weight: 400;
-    color: var(--color-text);
-    font-family: var(--font-heading);
-    border-left: 3px solid var(--color-header);
-    padding-left: 14px;
-    margin-bottom: 24px;
+    display: none;
 }
 
 .volume-meta-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .volume-meta-item {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.volume-meta-item .volume-meta-label::after {
+    content: "：";
 }
 
 .volume-meta-label {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-text-sub);
-    font-family: 'Poppins', 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--color-text);
+    flex-shrink: 0;
+    min-width: 70px;
 }
 
 .volume-meta-value {
-    font-size: 17px;
+    font-size: 14px;
     color: var(--color-text);
     font-weight: 400;
+}
+
+.volume-meta-value.volume-author-line {
+    color: #6cb4ee;
+}
+
+.volume-meta-value.volume-author-line:hover {
+    color: #4a9de0;
+    text-decoration: underline;
 }
 
 .price-yen {
@@ -351,6 +354,62 @@
 
 .follow-btn.followed .cross-v {
     transform: rotate(45deg);
+}
+
+.follow-btn-square {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 8px;
+    background: #F9F9F9;
+    color: #333;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+.follow-btn-square:hover {
+    background: #efefef;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+}
+
+.follow-btn-square.followed {
+    background: #2E333B;
+    color: #fff;
+    border-color: #2E333B;
+}
+
+.follow-btn-square .follow-icon {
+    display: block;
+}
+
+.follow-btn-square .follow-label,
+.follow-btn-square .follow-cross {
+    display: none;
+}
+
+.rakuten-square-btn-desktop {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: #F9F9F9;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+.rakuten-square-btn-desktop:hover {
+    background: #efefef;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+}
+
+.rakuten-square-btn-desktop svg {
+    transform: translateX(2px);
 }
 
 .rakuten-text-btn {
@@ -653,7 +712,7 @@
     .volume-side-btns {
         display: flex;
         position: absolute;
-        right: -52px;
+        right: -44px;
         bottom: 0;
         flex-direction: column;
         gap: 6px;
@@ -671,19 +730,25 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 38px;
-        height: 38px;
-        background: #222;
-        color: #fff;
-        border-radius: 8px;
+        width: 30px;
+        height: 30px;
+        background: #F9F9F9;
+        color: #333;
+        border: 1px solid #ddd;
+        border-radius: 7px;
         text-decoration: none;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.10);
         transition: background 0.2s, box-shadow 0.2s;
     }
 
+    .rakuten-square-btn svg {
+        width: 14px;
+        height: 14px;
+    }
+
     .rakuten-square-btn:hover {
-        background: #444;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.22);
+        background: #efefef;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.14);
     }
 
     .volume-buttons {
@@ -692,12 +757,25 @@
 
     .follow-btn {
         position: static;
-        width: 38px;
-        height: 38px;
+        width: 30px;
+        height: 30px;
         padding: 0;
-        border-radius: 8px;
+        border-radius: 7px;
+        background: #F9F9F9;
+        color: #333;
         border: 1px solid #ddd;
         box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    }
+
+    .follow-btn.followed {
+        background: #2E333B;
+        color: #fff;
+        border-color: #2E333B;
+    }
+
+    .follow-btn .follow-icon {
+        width: 14px;
+        height: 14px;
     }
 
     .follow-label {
@@ -743,9 +821,6 @@
 
     .volume-author-line {
         font-size: 13px;
-        margin-bottom: 16px;
-        text-align: center;
-        display: block;
     }
 
     .volume-buttons {
@@ -761,18 +836,20 @@
     }
 
     .volume-meta-section {
-        padding: 20px 16px;
-        margin: 0 0 24px;
+        padding: 12px 0;
+        margin: 16px 0 20px;
     }
 
     .volume-meta-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px 24px;
+        gap: 8px;
     }
 
-    .volume-meta-title {
-        font-size: 17px;
-        margin-bottom: 16px;
+    .volume-meta-label {
+        font-size: 12px;
+    }
+
+    .volume-meta-value {
+        font-size: 13px;
     }
 
     .volume-slider {

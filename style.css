@@ -20,8 +20,8 @@
 
 /* === CSS Variables === */
 :root {
-    --color-header: #930000;
-    --color-bg: #FFFFFF;
+    --color-header: #2E333B;
+    --color-bg: #F9F9F9;
     --color-card: #FFFFFF;
     --color-text: #2B2B2B;
     --color-text-sub: #5A5A5A;
@@ -43,7 +43,7 @@
 }
 
 html {
-    background-color: var(--color-header);
+    background-color: var(--color-bg);
 }
 
 /* スプラッシュ画面 */
@@ -65,8 +65,9 @@ html {
 
 #splash-screen img {
     width: 140px;
-    height: auto;
-    filter: brightness(0) invert(1);
+    height: 140px;
+    object-fit: contain;
+    border-radius: 24px;
 }
 
 body {
@@ -78,12 +79,15 @@ body {
 
 /* ヘッダー */
 header {
-    background-color: var(--color-header);
+    background-color: #2E333B;
     padding: 4px 0;
     box-shadow: 0 2px 8px rgba(0,0,0,0.18);
-    border-bottom: 1px solid #6e0000;
-    position: sticky;
+    border-bottom: 1px solid #1f2329;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
     z-index: 100;
     transition: transform 0.3s ease;
 }
@@ -102,15 +106,9 @@ header.header-hidden {
 }
 
 
+
 .header-logo {
     display: none;
-}
-
-@media (max-width: 768px) {
-    .header-logo {
-        display: flex;
-        align-items: center;
-    }
 }
 
 /* ヘッダーロゴ（位置調整は.header-container直後で定義） */
@@ -126,21 +124,26 @@ header.header-hidden {
     .header-logo-img {
         border-radius: 6px;
     }
+
+    header h1 {
+        font-size: 22px;
+    }
 }
 
 header h1 {
-    color: #fff;
-    font-size: 40px;
-    font-weight: 700;
+    color: #F9F9F9;
+    font-size: 32px;
+    font-weight: 400;
     margin-right: auto;
-    font-family: 'Poppins', 'Noto Sans JP', sans-serif;
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
     letter-spacing: 0.02em;
     text-transform: uppercase;
     position: static;
+    line-height: 52.8px;
 }
 
 header h1 a {
-    color: #fff;
+    color: #F9F9F9;
     text-decoration: none;
 }
 
@@ -153,16 +156,17 @@ header h1 a {
 .nav-link {
     display: inline-flex;
     align-items: center;
-    color: rgba(255,255,255,0.88);
+    color: rgba(249, 249, 249, 0.88);
     text-decoration: none;
     padding: 8px 16px;
     border: none;
     border-bottom: 3px solid transparent;
     transition: color 0.2s ease, border-color 0.2s ease;
     font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-    font-family: 'Poppins', 'Inter', 'Noto Sans JP', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
     background: transparent;
     position: relative;
     margin-bottom: -1px;
@@ -173,14 +177,14 @@ header h1 a {
 }
 
 .nav-link:hover {
-    color: #fff;
+    color: #F9F9F9;
     background: transparent;
-    border-bottom-color: #fff;
+    border-bottom-color: #F9F9F9;
 }
 
 .nav-link.active {
-    color: #fff;
-    border-bottom-color: #fff;
+    color: #F9F9F9;
+    border-bottom-color: #F9F9F9;
     font-weight: 700;
 }
 
@@ -315,7 +319,7 @@ header h1 a {
 .sidebar-toggle {
     position: fixed;
     top: 80px;
-    left: 20px;
+    left: max(20px, calc((100vw - 1200px) / 2 + 20px));
     z-index: 90;
     background: none;
     border: none;
@@ -398,17 +402,18 @@ header h1 a {
 }
 
 .sidebar-link {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 10px;
+    padding: 6px 10px;
     color: #2B2B2B;
     text-decoration: none;
     font-size: 13px;
     font-weight: 400;
-    border-radius: 6px;
-    transition: all 0.15s ease;
+    transition: color 0.15s ease;
     position: relative;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
 }
 
 .sidebar-link svg {
@@ -416,27 +421,14 @@ header h1 a {
 }
 
 .sidebar-link:hover {
-    background-color: rgba(0, 0, 0, 0.035);
     color: var(--color-text);
-}
-
-.sidebar-link:hover svg {
-    opacity: 0.7;
+    text-decoration: underline;
 }
 
 .sidebar-link.active {
-    background-color: var(--color-text);
-    color: #fff;
+    color: var(--color-text);
     font-weight: 500;
-}
-
-.sidebar-link.active svg {
-    opacity: 0.9;
-    stroke: #fff;
-}
-
-.sidebar-link.active .sidebar-dot {
-    box-shadow: 0 0 0 2px rgba(255,255,255,0.3);
+    text-decoration: underline;
 }
 
 /* 出版社カラードット */
@@ -681,12 +673,11 @@ main {
     }
 
     header h1 {
-        display: none;
+        font-size: 18px;
     }
 
     .header-logo {
-        display: flex;
-        align-items: center;
+        display: none;
     }
 
     .header-nav {

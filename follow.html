@@ -13,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Archivo+Black&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Crimson+Pro:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="follow.css">
     <script src="book-data.js"></script>
@@ -20,18 +21,18 @@
     <script src="follow.js"></script>
 </head>
 <body>
-    <div id="splash-screen"><img src="/logo-top.png" alt="NODEBOOK"></div>
-    <script>(function(){var s=document.getElementById('splash-screen');var isStandalone=window.navigator.standalone||window.matchMedia('(display-mode: standalone)').matches;if(!isStandalone){s.style.display='none';return;}setTimeout(function(){s.classList.add('hidden');setTimeout(function(){s.remove();},400);},1000);})();</script>
+    <div id="splash-screen"><img src="/icon-512.png" alt="NODEBOOK"></div>
+    <script>(function(){var s=document.getElementById('splash-screen');var isStandalone=window.navigator.standalone||window.matchMedia('(display-mode: standalone)').matches;if(!isStandalone||sessionStorage.getItem('splashShown')){s.style.display='none';return;}sessionStorage.setItem('splashShown','1');setTimeout(function(){s.classList.add('hidden');setTimeout(function(){s.remove();},400);},1000);})();</script>
     <!-- ヘッダー -->
     <header>
         <div class="header-container">
             <a href="home.html" class="header-logo"><img src="logo.png" alt="Logo" class="header-logo-img"></a>
             <h1><a href="home.html">NODEBOOK</a></h1>
             <nav class="header-nav">
-                <a href="home.html" class="nav-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l-2 0l9 -9l9 9l-2 0"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"/><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"/></svg>Home</a>
-                <a href="new-releases.html" class="nav-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/><path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/></svg>New Release</a>
+                <a href="follow.html" class="nav-link follow-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"/></svg>Follow</a>
+                <a href="new-releases.html" class="nav-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/><path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/></svg>Schedule</a>
                 <a href="ranking.html" class="nav-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21l8 0"/><path d="M12 17l0 4"/><path d="M7 4l10 0"/><path d="M17 4v8a5 5 0 0 1 -10 0v-8"/><path d="M7 8h-3a1 1 0 0 0 -1 1v1a3 3 0 0 0 3 3h1"/><path d="M17 8h3a1 1 0 0 1 1 1v1a3 3 0 0 1 -3 3h-1"/></svg>Ranking</a>
-                <a href="follow.html" class="nav-link follow-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"/></svg>Follow</a> <a href="scatter.html" class="nav-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="5" r="1.5"/><circle cx="19" cy="7" r="1.5"/><circle cx="10" cy="15" r="1.5"/><circle cx="17" cy="17" r="1.5"/><circle cx="7" cy="12" r="1.5"/></svg>Scatter</a>
+                
             </nav>
             <div class="search-box">
                 <input type="text" placeholder="Search novels...">
@@ -72,7 +73,7 @@
         </div>
         <ul class="mobile-menu-list">
             <li><a href="/home.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l-2 0l9 -9l9 9l-2 0"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"/><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"/></svg>Home</a></li>
-            <li><a href="/new-releases.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/><path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/></svg>New Release</a></li>
+            <li><a href="/new-releases.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/><path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/></svg>Schedule</a></li>
             <li><a href="/ranking.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21l8 0"/><path d="M12 17l0 4"/><path d="M7 4l10 0"/><path d="M17 4v8a5 5 0 0 1 -10 0v-8"/><path d="M7 8h-3a1 1 0 0 0 -1 1v1a3 3 0 0 0 3 3h1"/><path d="M17 8h3a1 1 0 0 1 1 1v1a3 3 0 0 1 -3 3h-1"/></svg>Ranking</a></li>
             <li><a href="/follow.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"/></svg>Follow</a></li>
             <li><a href="/scatter.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="5" r="1.5"/><circle cx="19" cy="7" r="1.5"/><circle cx="10" cy="15" r="1.5"/><circle cx="17" cy="17" r="1.5"/><circle cx="7" cy="12" r="1.5"/></svg>Random</a></li>
@@ -136,7 +137,7 @@
             <span>New</span>
         </a>
         <a href="/follow.html" class="bottom-nav-item" data-page="follow">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"/></svg>
+            <svg width="22" height="22" viewBox="0 0 512 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M222.97 43.094l-17.72 5.937c18.246 54.362 27.075 112.164 24.406 174.47l-.875 20.5 16.032-12.78c47.213-37.597 81.827-86.216 102.282-146.095l-17.688-6.063c-17.04 49.88-44.08 90.906-80.656 124.22.156-56.652-8.915-109.937-25.78-160.188zM53.812 51.22C51.09 160.79 110.03 244.245 208.75 273c2.573-110.1-55.144-193.608-154.938-221.78zm335.156 150.374c-58.436-.03-115.656 25.943-163.5 76.094 90.775 49.848 192.148 32.407 268.217-47.563-34.172-19.135-69.658-28.513-104.718-28.53zM136.936 277.03c-52.45.582-94.1 32.36-116.687 91.25 82.336 33.03 151.56 4.26 182.72-77.374-23.333-9.574-45.51-14.102-66.032-13.875zm81.97 19.47c-37.76 80.056-8.793 149.03 75.343 183.094 37.786-80.46 9.994-149.316-75.344-183.094z"/></svg>
             <span>Follow</span>
         </a>
         <button class="bottom-nav-item bottom-nav-search-btn" id="bottom-search-btn">
